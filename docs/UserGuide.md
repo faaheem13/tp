@@ -26,7 +26,8 @@ You may first want to read through our [glossary](#glossary) to have a better un
 
 NOTE: Users who are not familiar with using a CLI need not fret. Our commands have been specifically catered to a beginner's use - they are simple and easy to learn! Assistance is also provided automatically whenever there is an invalid command. 
 
-<div style="page-break-after: always;"></div>
+---
+
 <!-- * Table of Contents -->
 ## Table Of Contents
 1. [Quick Start](#quick-start)
