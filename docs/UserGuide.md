@@ -41,7 +41,7 @@ NOTE: Users who are not familiar with using a CLI need not fret. Our commands ha
       - [Add attendance](#adding-an-attendance-record-adda)
       - [Delete attendance](#deleting-an-attendance-record-dela)
       - [Edit attendance](#editing-an-attendance-for-any-number-of-students-edita)
-      - [Add/Edit description](#addingediting-a-description-description)
+      - [Add/Edit description](#addingremovingediting-a-description-description)
       - [List](#listing-a-class-to-view-list)
       - [Find](#locating-students-by-name-find)
       - [Clear](#clearing-all-entries-clear)
@@ -207,7 +207,7 @@ Format: `select INDEX`
 
 * In the bottom left corner, you will see the current class file open. In this case, it's `.\data\classbook\CS2103.json`
 
-* The file will always named in the format `CLASS_NAME.json`
+* The file will always be named in the format `CLASS_NAME.json`
 
 
 ## Working with your class
@@ -270,14 +270,15 @@ Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [s/STUDENT_ID] [desc/DES
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * If the input values for `PHONE_NUMBER`, `EMAIL` and `STUDENT_ID` already exist (including the target user), the command will be rejected.
+* The edit function does not allow the removal of a description, only updates to it. (i.e. If description is edited in this manner `desc/` in an attempt to remove the existing description, it will not work. Use [description](#addingediting-a-description-description) to remove existing description.)
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com`: Edits the phone number and email studentId of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 1 p/91234567 e/johndoe@example.com`: Edits the phone number and email of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower`: Edits the name of the 2nd person to be `Betsy Crower`.
 
 ### Adding an attendance record: `adda`
 
-Add an attendance record to all existing students in the studentId book.
+Add an attendance record to all existing students in the StudentBook.
 
 ![add_attendance_command](images/add_attendance_command.png)
 
@@ -303,7 +304,7 @@ Examples:
 
 ### Editing an attendance for any number of students: `edita`
 
-Edits the existing attendance record in the student's list of attendance in the studentId book. **Any number of students** can be edited in one go.
+Edits the existing attendance record in the student's list of attendance in the StudentBook. **Any number of students** can be edited in one go.
 
 ![edit_attendance_command_mulitple](images/edit_attendance_command_mulitple.PNG)
 
@@ -329,7 +330,7 @@ Examples:
 
 ### Deleting an attendance record: `dela`
 
-Deletes the specified attendance date from all the student's list of attendance records in studentId book.
+Deletes the specified attendance date from all the student's list of attendance records in StudentBook.
 
 ![delete_attendance_command](images/delete_attendance_command.png)
 
@@ -342,16 +343,21 @@ Format: `dela ar/DATE`
 Examples:
 * `dela ar/02-02-2024`: Deletes the attendance record, `02-02-2024`, from all students' existing list of attendance records.
 
-**Additional tips for Attendance taking** <br>
+<div class="reminder" markdown="1" style="background-color: #f7f7f7; border-left: 6px solid #5bc0de; padding: 10px; margin-bottom: 20px;">
+  
+### 💡 <span style="color: #5bc0de;">Additional tips for Attendance taking</span>
 - For quick attendance taking, here are the 3-4 steps that you can take:
   1. Use the `adda` command to mark everyone as present.
   2. Find the indexes of students who are absent and those who have valid reasons.
   3. Use the `edita` command to mark them as absent/having a valid reason at one shot.
-- Moreover, to facilitate easier reading of a student's attendance records, we have an attendance percentage bar (see highlights below) that displays the overall score of a student's attendance that you can view at a quick glance. The attendance percentage is calculated by this formula `(# of present + # of valid) / # of attendance records`
+- Moreover, to facilitate easier reading of a student's attendance records, we have an attendance percentage bar (see highlights below) that displays the overall score of a student's attendance that you can view at a quick glance. The attendance percentage is calculated by this formula:
+  > `(# of present + # of valid) / # of attendance records`
 
 ![AttendancePercentage](images/AttendancePercentage.png)
 
-### Adding\Editing a description: `description`
+</div>
+
+### Adding/Removing/Editing a description: `description`
 
 Adds a description to the selected student or Updates an already existing description of the selected student with the given description.
 
@@ -362,9 +368,12 @@ Format: `description INDEX desc/DESCRIPTION`
 * **Only one description is allowed**. The old description will be replaced with the new description (i.e., when we add/edit a description when one already exists.)
 * **Can use special characters**. To accommodate for adding tele handles, percentages/grades, dates etc.
 
+
 Examples:
-*  `description 1 desc/Loves coding`: Adds a description `Loves coding` to first student.
-*  `description 2 desc/Absent on 29/04/2023 due to Case Competition`: Adds a description `Absent on 29/04/2023 due to Case Competition` to second student on the list.
+*  `description 1 desc/Loves coding`: Adds/Edits a description `Loves coding` to first student on the list.
+*  `description 2 desc/Absent on 29/04/2023 due to Case Competition`: Adds/Edits a description `Absent on 29/04/2023 due to Case Competition` to second student on the list.
+*  `description 1 desc/`: Removes existing description from first student on the list.
+
 
 ### Listing a class to view: `list`
 
@@ -440,7 +449,7 @@ ClassBook and StudentBook data are saved automatically as a JSON file `[JAR file
 **A**: Ensure that Java 11 or above is installed in your operating system. To check if you have Java 11 or above, open the Command Prompt and type in `java -version`. Once verified, navigate to the program's directory and type in `java -jar MustVas.jar` in the Command Prompt. 
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous MustVas home folder.
 
 **Q**: How can I see the class that I am on right now? <br>
 **A**: You can see the class that you have currently selected in the bottom left corner of the application (as shown below). <br>
