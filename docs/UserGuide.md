@@ -141,6 +141,7 @@ Attribute     | Prefix (Flag) | Remarks
 **Description**   | `desc/` | Any Characters allowed.<br> Description will only store the latest description.<br>Optional field.<br> Example: `desc/This student loves coding.`
 </box>
 
+--------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
 
 ### Viewing help: `help`
