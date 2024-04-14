@@ -130,7 +130,13 @@ Attribute     | Prefix (Flag) | Remarks
 -----------|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------
 **Class Name**    | `c/` | Class name should only contain alphanumeric characters `[a-z, A-Z, 0-9]`. <br>No duplication is allowed. <br>Example: `c/cs2103`
 **Student Name**  | `n/` | Student name should only contain alphanumeric characters `[a-z, A-Z, 0-9]` and spaces. <br>Example: `n/John Teo`
-**Student Email** | `e/` | No duplication is allowed. <br> Example: `e/jane@gmail.com`
+**Student Email** | `e/` | Emails should be of the format local-part@domain and adhere to the following constraints: <br>1. The local-part should only contain alphanumeric characters and these special characters `+_.-`.<br>2. The `local-part` may not start or end with any special characters.<br>3. 
+            + "2. This is followed by a '@' and then a domain name. The domain name is made up of domain labels "
+            + "separated by periods.\n"
+            + "The domain name must:\n"
+            + "    - end with a domain label at least 2 characters long\n"
+            + "    - have each domain label start and end with alphanumeric characters\n"
+            + "    - have each domain label consist of alphanumeric characters, separated only by hyphens, if any."; <br> Example: `e/jane@gmail.com`
 **Student Id**   | `s/` | Student Id must begin with A, followed by 7 digits, and end with a letter. The last letter will automatically become capitalised. <br>No duplication is allowed. <br>Example: `s/A1234567D`
 **Student Phone**   | `p/` | Phone must contain only 8 digits from `80000000` to `99999999`. <br>No duplication is allowed. <br>Example: `p/88889999`
 **Attendance Date**   | `ar/` | Date must be in the format of `dd-MM-yyyy`. <br>No duplication is allowed. <br>Example: `ar/01-01-2024`
