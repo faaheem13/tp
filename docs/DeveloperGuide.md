@@ -643,8 +643,10 @@ Use case ends.
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
 * **Json File**: A file to store the data used in the program
+* **MSS**: Main Success Scenario which outlines the steps that users take when using the product in various scenarios
+* **ClassBook**: List of classes
+* **StudentBook**: List of students in individual classes
 
 --------------------------------------------------------------------------------------------------------------------
 
