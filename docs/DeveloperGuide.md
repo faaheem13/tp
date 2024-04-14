@@ -676,12 +676,24 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
+### Selecting a class
+
+1. Selecting a class
+   1. Prerequisites: At least one class must have been created. You may use `view` to see all current classes (Note: It is not compulsory to use `view`, as long as you know the index, you can `select` your desired class)
+
+   1. Test case: `select 0`
+      Expected: No class is selected. Error details shown in the status message.
+   1. Test case: `select 1` (At least one class exists)
+      Expected: The first class by index is selected. The filepath of the class' .json file will be shown on the bottom left corner/
+   1. Test case: `select 10` (There are less than 10 classes)
+      Expected: No class is selected. Error details shown in the status message.
 
 ### Deleting a person
 
-1. Deleting a person while all persons are being shown
+1. Deleting a person while persons are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   1. Prerequisites: At least one person shown in the interface. You may `select` a class, `find` a person, `add` a person or use `list` to see all persons in a class (note: `list` is automatically called when you `select` a class, so if the selected class has at least one person in it, they will show up in the interface).
+    
 
    1. Test case: `delete 1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. 
@@ -697,7 +709,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Adding a description while all persons are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Before which, you have to `view` classes and then `select` based on the index.
+   1. Prerequisites: At least one person shown in the interface. You may `select` a class, `find` a person, `add` a person or use `list` to see all persons in a class (note: `list` is automatically called when you `select` a class, so if the selected class has at least one person in it, they will show up in the interface).
 
    1. Test case: `description 1 desc/Hello`<br>
       Expected: First student/contact has a description added to them. Details of where the description has been added is shown.
