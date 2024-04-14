@@ -182,7 +182,7 @@ The index refers to the index number shown in the displayed class list. (e.g. CS
 
 </div>
 
-![RemoveClass](images/RemoveClassResult.png)
+![<img src="images/RemoveClassResult.png" width="450" height="550">](images/RemoveClassResult.png)
 * Removes the class from your ClassBook and entire StudentBook from that class as well, `[JAR file location]/data/classbook/[ClassName].json` will be simultaneously deleted.
 * Any classes that are currently selected will be unselected, in order to prevent any accidental modification to your data.
 * `.\No class selected!` will be displayed on the bottom left.
