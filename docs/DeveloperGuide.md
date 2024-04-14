@@ -286,7 +286,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 **Aspect: How undo & redo executes:**
 
-* **Alternative 1 (current choice):** Saves the entire studentId book.
+* **Alternative 1 (current choice):** Saves the entire StudentBook.
   * Pros: Easy to implement.
   * Cons: May have performance issues in terms of memory usage.
 
@@ -294,12 +294,6 @@ The following activity diagram summarizes what happens when a user executes a ne
   itself.
   * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
 
 
 # Implementation of Classes feature
@@ -371,25 +365,26 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 | Priority | As a …​                                     | I want to …​                                        | So that I can…​                                                         |
 |----------|--------------------------------------------|----------------------------------------------------|------------------------------------------------------------------------|
-| `* *`    | New user exploring the app                 | Access the user guide easily via a help button     | Learn how to use the app                                               |
 | `* * *`  | User who teaches multiple classes          | View my classes                                    | See all the classes I'm currently managing at a glance                 |
 | `* * *`  | User who teaches multiple classes          | Select the class that I want to manage             | Easily manage multiple classes                                         |       
 | `* * *`  | User who teaches multiple classes          | Create new class                                   | Separate students into their respective classes                        |
 | `* * *`  | User who teaches multiple classes          | Delete class                                       | Remove classes that is not needed anymore                              |
 | `* * *`  | User who manages students                  | Add a new student to the class                     | Keep track of my students' profiles                                    |
 | `* * *`  | User who manages students                  | Delete a student from the class                    | Keep an updated record of students in the class                        |
+| `* * *`  | User who manages student attendance        | Create an attendance record for my students        | Acknowledge a student's attendance (PRESENT, ABSENT, VALID REASON)     | 
+| `* * *`  | User who manages student attendance        | Delete an attendance record                        | Remove any unnecessary attendance records                              |
 | `* *`    | User who manages students                  | Write descriptions for each student                | Take note of certain students based on the description                 |
 | `* *`    | User who manages students                  | Create assignments and grades for each student     | Track my student's grades                                              |
-| `* * *`  | User who manages student attendance        | Create an attendance record for my students        | Acknowledge a student's attendance (PRESENT, ABSENT, VALID REASON)     | 
 | `* *`    | User who manages student attendance        | Edit the attendance record of students             | Conveniently make changes to attendance when necessary                 |
-| `* * *`  | User who manages student attendance        | Delete an attendance record                        | Remove any unnecessary attendance records                              |
 | `* *`    | User who manages student attendance        | View the attendance rate of a student              | Easily view the student's overall attendance rate at one glance        |
 | `* *`    | Organised user                             | Browse students in the default alphabetical setting| easily scroll to find a particular contact                             |
+| `* *`    | New user exploring the app                 | Access the user guide easily via a help button     | Learn how to use the app                                               |
 | `* `     | Forgetful user                             | Schedule reminders for specific contact            | Don't miss important dates or admin tasks                              |
 | `* `     | User who uses Canvas LMS                   | Import the attendance data into Canvas             | Easily upload attendance statistics for the school admin               |
 | `* `     | User who looking to be more efficient      | Send emails/texts to an entire class               | Easily communicate information to the students                         |
 | `* `     | User who looking to be more efficient      | Generate attendance reports                        | Easily submit them to school admin                                     |
 | `* `     | User who looking to be more efficient      | Export Student date in multiple formats (etc. PDF) | Share the data with other tutors or professors easily                  |
+
 ## Use cases
 
 (For all use cases below, the **System** is the `MustVas` and the **Actor** is the `user`, unless specified otherwise)
@@ -560,7 +555,7 @@ Use case ends.
 
   Use case ends.
 
-### Use case: Add attendance record for a class of students (UC-09)
+### Use case: Delete attendance record for a class of students (UC-09)
 
 **MSS**
 
@@ -679,7 +674,6 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
 
 ### Deleting a person
 
@@ -688,7 +682,7 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
    1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. 
 
    1. Test case: `delete 0`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
@@ -696,7 +690,6 @@ testers are expected to do more *exploratory* testing.
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
 
 ### Adding a description
 
@@ -719,6 +712,6 @@ testers are expected to do more *exploratory* testing.
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
+   1. A missing data file of a StudentBook may occur if user accidentally deletes the `.json` file of the class. <br>
+      A corrupted data file may occur if user accidentally edits the `.json` files manually and inputs invalid data.
+      Expected: All data from that missing/corrupted file is wiped. A new `classbook.json` or new `[class].json` will be created when program runs again. 
