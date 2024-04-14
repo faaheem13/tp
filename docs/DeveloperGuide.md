@@ -470,7 +470,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User enters the program (MustVas).
-2. User [selects a class (UC-03)](#use-case-select-a-class-of-students-to-manage-uc-04).
+2. User [selects a class (UC-04)](#use-case-select-a-class-of-students-to-manage-uc-04).
 3. User then inputs the command 'add' to check how to enter command.
 4. User then inputs details for the command 'add'.
 5. MustVas then adds the student to the selected class and displays all relevant details in the console.
@@ -495,7 +495,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User enters the program (MustVas).
-2. User [selects a class (UC-03)](#use-case-select-a-class-of-students-to-manage-uc-04).
+2. User [selects a class (UC-04)](#use-case-select-a-class-of-students-to-manage-uc-04).
 3. User inputs the command to delete a student record from selected class.
 4. MustVas confirms the deletion and removes the student from the selected class.
 
@@ -513,7 +513,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User enters the program (MustVas).
-2. User [selects a class (UC-03)](#use-case-select-a-class-of-students-to-manage-uc-04).
+2. User [selects a class (UC-04)](#use-case-select-a-class-of-students-to-manage-uc-04).
 3. User inputs the command to add an attendance record for all students.
 4. MustVas confirms the added attendance, stores the attendance records for all students in the class, and show the updated attendance records.
 
@@ -537,7 +537,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1. User enters the program (MustVas).
 2. MustVas shows the layout of the program.
-3. User [selects a class (UC-03)](#use-case-select-a-class-of-students-to-manage-uc-04).
+3. User [selects a class (UC-04)](#use-case-select-a-class-of-students-to-manage-uc-04).
 4. User inputs the command to edit an attendance record for some students.
 5. MustVas confirms the edited attendance records, stores the attendance records for the selected students in the class, and show the updated attendance records.
 
@@ -561,7 +561,7 @@ Use case ends.
 
 1. User enters the program (MustVas).
 2. MustVas shows the layout of the program.
-3. User [selects a class (UC-03)](#use-case-select-a-class-of-students-to-manage-uc-04).
+3. User [selects a class (UC-04)](#use-case-select-a-class-of-students-to-manage-uc-04).
 4. User inputs the command to delete an attendance record for all students.
 5. MustVas confirms the deleted attendance records, stores the existing attendance records for all students in the class, and show the updated attendance records.
 
@@ -584,7 +584,7 @@ Use case ends.
 **MSS**
 
 1. User enters the program (MustVas).
-2. User [selects a class (UC-03)](#use-case-select-a-class-of-students-to-manage-uc-04).
+2. User [selects a class (UC-04)](#use-case-select-a-class-of-students-to-manage-uc-04).
 3. User inputs the command to add description to a student.
 4. User inputs the description details.
 5. MustVas saves the description for the selected student.
@@ -608,7 +608,7 @@ Use case ends.
 **MSS**
 
 1. User enters the program (MustVas).
-2. User User request to [view the list of classes](#use-case-view-list-of-classes-uc-03).
+2. User inputs command to [view the list of classes](#use-case-view-list-of-classes-uc-03).
 3. User inputs the command to remove a class.
 4. User selects the class to be removed from the list.
 5. MustVas removes the selected class and all associated data from the system.
