@@ -503,7 +503,11 @@ Term     | Abbreviations | Definition
 **Command Prompt**   | - | A command line interpreter application available in most Windows operating systems that allows users to enter commands to perform tasks.
 **Terminal**   | - | A text-based interface for interacting with a computer system or program by typing commands, commonly found in Unix-like operating systems.
 **Change Directory** | `cd` | A command used in command line interfaces to change the current working directory to a specified location within the file system.
-**List**   | `ls` | A command used in command line interfaces to list the contents of a directory or folder.
+<sup>[1](#1-not-to-be-confused-with-mustvas-list-command)</sup>**List**   | `ls` | A command used in command line interfaces to list the contents of a directory or folder.
 **Directory**   | `dir` | A command used in command line interfaces, particularly in Windows operating systems, to list the contents of a directory or folder.
 **Java ARchive**   | `jar` or <br> `JAR` | A file format used to package Java class files, associated metadata, and resources into a single file for distribution or deployment.
 **JavaScript Object Notation** | `json` or <br> `JSON` | A file format that is easy for humans to read and write, and easy for machines to parse and generate, commonly used for transmitting data between a server and a web application.
+**ClassBook** | - | List of classes created by user.
+**StudentBook** | - | List of students within each class created by user.
+
+#### <sup>1</sup> Not to be confused with MustVas' `list` command.
