@@ -41,7 +41,7 @@ NOTE: Users who are not familiar with using a CLI need not fret. Our commands ha
       - [Add attendance](#adding-an-attendance-record-adda)
       - [Delete attendance](#deleting-an-attendance-record-dela)
       - [Edit attendance](#editing-an-attendance-for-any-number-of-students-edita)
-      - [Add/Edit description](#addingremovingediting-a-description-description)
+      - [Add/Edit description](#adding-removing-editing-a-description-description)
       - [List](#listing-a-class-to-view-list)
       - [Find](#locating-students-by-name-find)
       - [Clear](#clearing-all-entries-clear)
