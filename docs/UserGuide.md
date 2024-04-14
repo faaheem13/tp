@@ -155,7 +155,7 @@ Format: `help`
 
 Creates a new class.
 
-<img src="images/CreateClassCommand.png" width="400" height="300">
+<img src="images/CreateClassCommand.png" width="400" height="500">
 
 Format: `create c/CLASS_NAME`
 
