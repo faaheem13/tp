@@ -142,7 +142,6 @@ Attribute     | Prefix (Flag) | Remarks
 </box>
 
 --------------------------------------------------------------------------------------------------------------------
-<div style="page-break-after: always;"></div>
 
 ### Viewing help: `help`
 
@@ -156,7 +155,7 @@ Format: `help`
 
 Creates a new class.
 
-![CreateClassCommand](images/CreateClassCommand.png)
+<img src="images/CreateClassCommand.png" width="400" height="300">
 
 Format: `create c/CLASS_NAME`
 
