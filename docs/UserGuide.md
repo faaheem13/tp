@@ -76,9 +76,11 @@ _See our Terminal guide below._ <br>
    * 4b. **[For Windows Users]** Open a new command prompt and make sure that you are in the correct directory where MustVas.jar is in. You may use `cd` to navigate into the correct folder, and use the `dir` command to check that your jar file is actually there. Copy and paste this command `java -jar MustVas.jar` into your command prompt. <br>
 _See our Command Prompt guide below._ <br>
 ![CommandPromptInstructions](images/command_prompt.png)
+
+
 8. An interface similar to the below should appear in a few seconds. <br>
    ![Ui](images/UI_initial.png)
-
+   
 9. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
@@ -155,7 +157,9 @@ Format: `help`
 
 Creates a new class.
 
-<img src="images/CreateClassCommand.png" width="400" height="500">
+<p align="center">
+    <img src="images/CreateClassCommand.png" width="510" height="580">
+</p>
 
 Format: `create c/CLASS_NAME`
 
@@ -182,7 +186,10 @@ The index refers to the index number shown in the displayed class list. (e.g. CS
 
 </div>
 
-![<img src="images/RemoveClassResult.png" width="450" height="550">](images/RemoveClassResult.png)
+<p align="center">
+    <img src="images/RemoveClassResult.png" width="510" height="580">
+</p>
+
 * Removes the class from your ClassBook and entire StudentBook from that class as well, `[JAR file location]/data/classbook/[ClassName].json` will be simultaneously deleted.
 * Any classes that are currently selected will be unselected, in order to prevent any accidental modification to your data.
 * `.\No class selected!` will be displayed on the bottom left.
@@ -191,8 +198,7 @@ The index refers to the index number shown in the displayed class list. (e.g. CS
 ### Viewing the classes: `view`
 
 Shows list of classes in result display.
-
-![ViewCommand](images/ViewCommand2.png)
+  ![ViewCommand](images/ViewCommand2.png)
 * The index number shown in the displayed class list is used for [Remove](#removing-a-class-rm) and [Select](#selecting-a-class-to-view-select) (e.g. Use index 1 for CS2103)
 
 
@@ -201,7 +207,9 @@ Shows list of classes in result display.
 Shows the list of all students in the selected class.
 Allows you to modify and view the class.
 
-![img_1.png](images/SelectCommand.png)
+<p align="center">
+    <img src="images/SelectCommand.png" width="530" height="625">
+</p>
 
 Format: `select INDEX`
 
@@ -232,7 +240,9 @@ If you see something like this (with the right class of course!) in the bottom l
 
 Adds a student to the StudentBook.
 
-![add_new_student_with_no_attendance](images/add_new_student_with_not_attendance.jpg)
+<p align="center">
+    <img src="images/add_new_student_with_not_attendance.jpg" width="510" height="570">
+</p>
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL s/STUDENT_ID [desc/DESCRIPTION]`
 
@@ -243,7 +253,9 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL s/STUDENT_ID [desc/DESCRIPTION]`
 * The newly added student will be automatically positioned alphabetically by name.
 * The description field is optional. You may write any description for the new student. However, **only one description is allowed**. The old description will be replaced with the new description when editing or adding a new description when one already exists.
 * If there are existing attendance records allocated to the existing students, the newly added student will have a default status of '2' (meaning Valid Reason) for these existing attendance records. Please refer to the image below for illustration.
-![add_new_student_with_attendance](images/add_new_student_with_attendance.PNG)
+<p align="center">
+    <img src="images/add_new_student_with_attendance.PNG" width="510" height="570">
+</p>
   - You may see our [attendance features](#adding-an-attendance-record-adda) below for more information.
 
 Examples:
@@ -284,7 +296,9 @@ Examples:
 
 Add an attendance record to all existing students in the StudentBook.
 
-![add_attendance_command](images/add_attendance_command.png)
+<p align="center">
+    <img src="images/add_attendance_command.png" width="510" height="570">
+</p>
 
 Format: `adda ar/DATE`
 
@@ -310,7 +324,9 @@ Examples:
 
 Edits the existing attendance record in the student's list of attendance in the StudentBook. **Any number of students** can be edited in one go.
 
-![edit_attendance_command_mulitple](images/edit_attendance_command_mulitple.PNG)
+<p align="center">
+    <img src="images/edit_attendance_command_mulitple.PNG" width="510" height="570">
+</p>
 
 Format: `edita INDEX1, INDEX2, …​ ar/DATE st/STATUS`
 
@@ -336,7 +352,9 @@ Examples:
 
 Deletes the specified attendance date from all the student's list of attendance records in StudentBook.
 
-![delete_attendance_command](images/delete_attendance_command.png)
+<p align="center">
+    <img src="images/delete_attendance_command.png" width="510" height="570">
+</p>
 
 Format: `dela ar/DATE`
 
@@ -365,7 +383,9 @@ Examples:
 
 Adds a description to the selected student or Updates an already existing description of the selected student with the given description.
 
-![DescriptionCommand](images/DescriptionCommand.jpg)
+<p align="center">
+    <img src="images/DescriptionCommand.jpg" width="590" height="630">
+</p>
 
 Format: `description INDEX desc/DESCRIPTION`
 
@@ -402,7 +422,10 @@ Examples:
 * `find andrew`: Returns `andrew` and `Andrew`
 * `find nic faaheem` returns `nic`, `faaheem`<br>
 * `find John Doe` returns `John Doe`, `Johnathan Doe`, `Johnette Doe`<br>
-    ![result for 'find john doe'](images/FindExample3.png)
+
+  <p align="center">
+    <img src="images/FindExample3.png" width="510" height="570">
+  </p>
 
 
 **Warning**
@@ -455,11 +478,13 @@ ClassBook and StudentBook data are saved automatically as a JSON file `[JAR file
 
 **Q**: How can I see the class that I am on right now? <br>
 **A**: You can see the class that you have currently selected in the bottom left corner of the application (as shown below). <br>
+
 ![selected_class_showing](images/SelectedClassFAQ.png)
 
 **Q**: How can I manually delete students/classes? <br>
 **A**: Find your data folder in your home directory where MustVas is stored. In this folder, you will see the `classbook.json` file that contains the list of _courseCode_s, as well as another classbook folder that contains the individual `.json` files of the StudentBook, named after its class name. 
 ![manually delete class](images/ManuallyDeleteFiles.png)
+
 - You may delete the individual StudentBook by deleting its individual `.json` file under the classbook folder. Do note that doing so will be akin to using the `clear` command on that class, effectively setting an empty StudentBook to be used.
 - However, if you do intend to manually delete an entire class, do remember to delete both its _courseCode_ field in `classbook.json` and its respective `.json` file in the classbook folder. Otherwise, deleting just the _courseCode_ field in the `classbook.json` file would cause the same StudentBook to be used if a class of the same _courseCode_ is created again (i.e. `create c/class5` would reuse its old StudentBook with its old student contacts and not create a new empty StudentBook).
 
