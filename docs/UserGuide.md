@@ -128,14 +128,14 @@ _See our Command Prompt guide below._ <br>
 The meaning of each prefix is listed below:
 Attribute     | Prefix (Flag) | Remarks 
 -----------|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------
-**Class Name**    | `c/` | Class name should only contain alphanumeric characters `[a-z, A-Z, 0-9]`. <br>No duplication is allowed. <br>Example: `c/cs2103`
+**Class Name**    | `c/` | Class name should only contain alphanumeric characters `[a-z, A-Z, 0-9]`. <br>No duplication between students is allowed. <br>Example: `c/cs2103`
 **Student Name**  | `n/` | Student name should only contain alphanumeric characters `[a-z, A-Z, 0-9]` and spaces. <br>Example: `n/John Teo`
-**Student Email** | `e/` | Emails should be of the format `local-part@domain-name` and adhere to the following constraints: <br>1. The `local-part` should only contain alphanumeric characters and these special characters `+_.-`.<br>2. The `local-part` may not start or end with any special characters.<br>3. This is followed by an '@' and then a domain name.<br>4. The `domain-name` is made up of domain labels separated by periods.<br>5.The `domain-name` must end with a domain label at least 2 characters long. <br>6. Each domain label consist of alphanumeric characters, separated only by hyphens, if any.<br>7. Each domain label must start and end with alphanumeric characters (i.e., cannot start or end with hyphens).
-**Student Id**   | `s/` | Student Id must begin with A, followed by 7 digits, and end with a letter. The last letter will automatically become capitalised. <br>No duplication is allowed. <br>Example: `s/A1234567D`
-**Student Phone**   | `p/` | Phone must contain only 8 digits from `80000000` to `99999999`. <br>No duplication is allowed. <br>Example: `p/88889999`
-**Attendance Date**   | `ar/` | Date must be in the format of `dd-MM-yyyy`. <br>No duplication is allowed. <br>Example: `ar/01-01-2024`
-**Attendance Status**   | `st/` | The status must be either `0`, `1` or `2`. <br>Example: `st/0`
-**Description**   | `desc/` | Description will only keep the latest description. <br> Example: `desc/This student loves coding.`
+**Student Email** | `e/` | Emails should be of the format `local-part@domain-name` and adhere to the following constraints: <br>1. The `local-part` should only contain alphanumeric characters and these special characters `+_.-`.<br>2. The `local-part` may not start or end with any special characters.<br>3. This must be followed by an '@' and then a domain name.<br>4. The `domain-name` is made up of domain labels separated by periods.<br>5.The `domain-name` must end with a domain label at least 2 characters long. <br>6. Each domain label consist of alphanumeric characters, separated only by hyphens, if any.<br>7. Each domain label must start and end with alphanumeric characters (i.e., cannot start or end with hyphens).
+**Student Id**   | `s/` | Student Id must begin with A, followed by 7 digits, and end with a letter. The last letter will automatically become capitalised. <br>No duplication between students is allowed. <br>Example: `s/A1234567D`
+**Student Phone**   | `p/` | Phone must contain only 8 digits from `80000000` to `99999999`. <br>No duplication between students is allowed. <br>Example: `p/88889999`
+**Attendance Date**   | `ar/` | Date must be in the format of `dd-MM-yyyy`.<br>Optional field.<br>No duplication of attendance dates are allowed. <br>Example: `ar/01-01-2024`
+**Attendance Status**   | `st/` | The status must be either `0`, `1` or `2`. 0 for 'Absent', represented by a red cross ❌, 1 for 'Present', represented by a green tick ✅, and  2 for 'Valid Reason', represented by a blue dot 🔵<br>Optional field.<br>Example: `st/0`
+**Description**   | `desc/` | Any Characters allowed.<br>Optional field.<br> Description will only store the latest description. <br> Example: `desc/This student loves coding.`
 </box>
 
 
