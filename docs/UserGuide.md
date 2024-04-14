@@ -26,8 +26,6 @@ You may first want to read through our [glossary](#glossary) to have a better un
 
 NOTE: Users who are not familiar with using a CLI need not fret. Our commands have been specifically catered to a beginner's use - they are simple and easy to learn! Assistance is also provided automatically whenever there is an invalid command. 
 
-<div style="page-break-after: always;"></div>
-
 <!-- * Table of Contents -->
 ## Table Of Contents
 1. [Quick Start](#quick-start)
@@ -43,7 +41,7 @@ NOTE: Users who are not familiar with using a CLI need not fret. Our commands ha
       - [Add attendance](#adding-an-attendance-record-adda)
       - [Delete attendance](#deleting-an-attendance-record-dela)
       - [Edit attendance](#editing-an-attendance-for-any-number-of-students-edita)
-      - [Add/Edit description](#adding-removing-editing-a-description-description)
+      - [Add/Edit description](#addingediting-a-description-description)
       - [List](#listing-a-class-to-view-list)
       - [Find](#locating-students-by-name-find)
       - [Clear](#clearing-all-entries-clear)
@@ -55,6 +53,7 @@ NOTE: Users who are not familiar with using a CLI need not fret. Our commands ha
 7. [Known Issues](#known-issues)
 8. [Command Summary](#command-summary)
 9. [Glossary](#glossary)
+
 <page-nav-print />
 
 --------------------------------------------------------------------------------------------------------------------
@@ -105,7 +104,6 @@ _See our Command Prompt guide below._ <br>
 10. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
-<div style="page-break-after: always;"></div>
 
 ## Features
 
@@ -422,8 +420,6 @@ Exits the program.
 
 Format: `exit`
 
-<div style="page-break-after: always;"></div>
-
 ### Saving the data
 
 ClassBook and StudentBook data are saved automatically after any command that changes the data. There is no need to save manually. You can find the same in the data folder (which is going to be in the same directory as the application (i.e., .JAR file).
@@ -444,7 +440,6 @@ ClassBook and StudentBook data are saved automatically as a JSON file `[JAR file
 **Clear All**: Instead of manually using the `rm` command to remove each individual class, or the `clear` command to clear the selected StudentBook, this feature will clear all data (including ClassBooks and their respective StudentBooks), increasing convenience for users.
 
 --------------------------------------------------------------------------------------------------------------------
-<div style="page-break-after: always;"></div>
 
 ## FAQ
 
@@ -476,7 +471,6 @@ ClassBook and StudentBook data are saved automatically as a JSON file `[JAR file
 2. **When using view after selecting a class**, if you are viewing your list of classes after having selected a class, the StudentBook of the previously selected class is still considered selected (and will be displayed). Any commands entered to modify this class will take effect until another class is selected from the list of classes.
 
 --------------------------------------------------------------------------------------------------------------------
-<div style="page-break-after: always;"></div>
 
 ## Command summary
 
