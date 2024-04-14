@@ -719,11 +719,12 @@ testers are expected to do more *exploratory* testing.
 
    1. Test case: `delete 0`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+      
    1. Test case: `delete 1` (no class selected)
       Expected: Interface prompts you to `select` a class first
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
 
 ### Adding a description
@@ -739,7 +740,7 @@ testers are expected to do more *exploratory* testing.
       Expected: Error message thrown. No description is added to any contact.
 
    1. Other incorrect description commands: `description 1 Hello`, `description`, `description desc/Hello`, `description x desc/Hello` (Where x is larger than the list size)<br>
-      Expected: Similar to previous.
+      Expected: Error message thrown. No description is added to any contact.
 
    1. Adding a description works in concurrence with add/edit commands as well. As long as their prerequisites are met, and description is following a prefix `desc/`, it should work effectively.
 
