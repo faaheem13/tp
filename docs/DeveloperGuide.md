@@ -703,9 +703,9 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: At least one class must have been created. You may use `view` to see all current classes (Note: It is not compulsory to use `view`, as long as you know the index, you can `rm` your desired class)
 
    1. Test case: `rm 0`<br>
-      Expected: No class is removed. Error details shown in the status message. The filepa
-   Test case: `rm 1` (At least one class exists)<br>
-      Expected: The first class by index is selected. The filepath current file (in the bottom left corner) will be changed to `.\No class selected!`. (Note: Even if another class is selected, when any class is deleted, the .json file will be closed and the filepath will be displayed as `.\No class selected!`.
+      Expected: No class is removed. Error details shown in the status message. The current filepath (in the bottom left corner) is not changed
+   1. Test case: `rm 1` (At least one class exists)<br>
+      Expected: The first class by index is selected. The current filepath (in the bottom left corner) will be changed to `.\No class selected!`. (Note: Even if another class is selected, when any class is deleted, the .json file will be closed and the filepath will be displayed as `.\No class selected!`.)
 
 ### Deleting a person
 
@@ -720,7 +720,7 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `delete 0`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
       
-   1. Test case: `delete 1` (no class selected)
+   1. Test case: `delete 1` (no class selected)<br>
       Expected: Interface prompts you to `select` a class first
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
