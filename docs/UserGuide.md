@@ -145,6 +145,9 @@ Attribute     | Prefix (Flag) | Remarks
 
 --------------------------------------------------------------------------------------------------------------------
 
+<div style="page-break-after: always;"></div>
+
+
 ### Viewing help: `help`
 
 Shows a message with a link to our help page.
