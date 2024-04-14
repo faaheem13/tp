@@ -458,7 +458,7 @@ ClassBook and StudentBook data are saved automatically as a JSON file `[JAR file
 **Q**: How can I manually delete students/classes? <br>
 **A**: Find your data folder in your home directory where MustVas is stored. In this folder, you will see the `classbook.json` file that contains the list of _courseCode_s, as well as another classbook folder that contains the individual `.json` files of the StudentBook, named after its class name. 
 ![manually delete class](images/ManuallyDeleteFiles.png)
-- You may delete the individual StudentBook by deleting its individual .json file under the classbook folder. Do note that doing so will be akin to using the `clear` command on that class, effectively setting an empty StudentBook to be used.
+- You may delete the individual StudentBook by deleting its individual `.json` file under the classbook folder. Do note that doing so will be akin to using the `clear` command on that class, effectively setting an empty StudentBook to be used.
 - However, if you do intend to manually delete an entire class, do remember to delete both its _courseCode_ field in `classbook.json` and its respective `.json` file in the classbook folder. Otherwise, deleting just the _courseCode_ field in the `classbook.json` file would cause the same StudentBook to be used if a class of the same _courseCode_ is created again (i.e. `create c/class5` would reuse its old StudentBook with its old student contacts and not create a new empty StudentBook).
 
 **Q**: How do I fix "This student already exists in the class" error? <br>
