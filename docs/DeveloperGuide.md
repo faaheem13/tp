@@ -667,7 +667,8 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Double-click the jar file
+      Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 1. Saving window preferences
 
@@ -680,30 +681,30 @@ testers are expected to do more *exploratory* testing.
 1. Viewing the classes
    1. Prerequisites: Nil
   
-   1. Test case: `view` (at least one class)
+   1. Test case: `view` (at least one class)<br>
       Expected: Classes are displayed in the UI, each labelled with an index number(e.g. "1:CS2103  2:CS2101")
-   1. Test case: `view` (no classes)
+   1. Test case: `view` (no classes)<br>
       Expected: Interface displays a message stating you are not managing any classes, and prompts to `create` a class
-   1. Test case: `view randominput1234567`
+   1. Test case: `view randominput1234567`<br>
       Expected: Identical behaviour to `view`, Classes are displayed in the UI, each labelled with an index number(e.g. "1:CS2103  2:CS2101")
 ### Selecting a class
 1. Selecting a class
    1. Prerequisites: At least one class must have been created. You may use `view` to see all current classes (Note: It is not compulsory to use `view`, as long as you know the index, you can `select` your desired class)
 
-   1. Test case: `select 0`
+   1. Test case: `select 0`<br>
       Expected: No class is selected. Error details shown in the status message.
-   1. Test case: `select 1` (At least one class exists)
+   1. Test case: `select 1` (At least one class exists)<br>
       Expected: The first class by index is selected. The filepath of the class' .json file will be shown on the bottom left corner/
-   1. Test case: `select 10` (There are less than 10 classes)
+   1. Test case: `select 10` (There are less than 10 classes)<br>
       Expected: No class is selected. Error details shown in the status message.
 
 ### Removing a class
 1. Removing a class
    1. Prerequisites: At least one class must have been created. You may use `view` to see all current classes (Note: It is not compulsory to use `view`, as long as you know the index, you can `rm` your desired class)
 
-   1. Test case: `rm 0`
+   1. Test case: `rm 0`<br>
       Expected: No class is removed. Error details shown in the status message. The filepa
-   Test case: `rm 1` (At least one class exists)
+   Test case: `rm 1` (At least one class exists)<br>
       Expected: The first class by index is selected. The filepath current file (in the bottom left corner) will be changed to `.\No class selected!`. (Note: Even if another class is selected, when any class is deleted, the .json file will be closed and the filepath will be displayed as `.\No class selected!`.
 
 ### Deleting a person
@@ -747,5 +748,5 @@ testers are expected to do more *exploratory* testing.
 1. Dealing with missing/corrupted data files
 
    1. A missing data file of a StudentBook may occur if user accidentally deletes the `.json` file of the class. <br>
-      A corrupted data file may occur if user accidentally edits the `.json` files manually and inputs invalid data.
+      A corrupted data file may occur if user accidentally edits the `.json` files manually and inputs invalid data.<br>
       Expected: All data from that missing/corrupted file is wiped. A new `classbook.json` or new `[class].json` will be created when program runs again. 
