@@ -296,6 +296,8 @@ Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [s/STUDENT_ID] [desc/DES
 * If the input values for `PHONE_NUMBER`, `EMAIL` and `STUDENT_ID` already exist (including the target user), the command will be rejected.
 * The edit function does not allow the removal of a description, only updates to it. (i.e. If description is edited in this manner `desc/` in an attempt to remove the existing description, it will not work. Use [description](#addingediting-a-description-description) to remove existing description.)
 
+<div style="page-break-after: always;"></div>
+
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com`: Edits the phone number and email of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower`: Edits the name of the 2nd person to be `Betsy Crower`.
