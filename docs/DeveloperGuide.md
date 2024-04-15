@@ -387,7 +387,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User request to [view the list of classes](#use-case-view-list-of-classes-uc-03).
+1. User request to [view the list of classes (UC-03)](#use-case-view-list-of-classes-uc-03).
 2. User requests to select a class.
 3. MustVas shows the details of the selected class.
 
