@@ -209,8 +209,6 @@ Shows list of classes in result display.
   ![ViewCommand](images/ViewCommand2.png)
 * The index number shown in the displayed class list is used for [Remove](#removing-a-class-rm) and [Select](#selecting-a-class-to-view-select) (e.g. Use index 1 for CS2103)
 
-<div style="page-break-after: always;"></div>
-
 ### Selecting a class to view: `select`
 
 Shows the list of all students in the selected class.
@@ -329,6 +327,7 @@ Format: `adda ar/DATE`
 Examples:
 *  `adda ar/01-01-2024`: All the existing students will have a newly added attendance with date `01-01-2024` and a default status `1`.
 
+<div style="page-break-after: always;"></div>
 
 ### Editing an attendance for any number of students: `edita`
 
@@ -357,6 +356,8 @@ Format: `edita INDEX1, INDEX2, …​ ar/DATE st/STATUS`
 Examples:
 *  `edita 1 ar/01-01-2024 st/2`: Edits the attendance status of the 1st student for `01-01-2024` to `2`, indicating absence with a valid reason.
 *  `edita 2, 3 ar/01-01-2024 st/0`: Edits the attendance status of the 2nd and 3rd student for `01-01-2024` to `0`, indicating absence.
+
+<div style="page-break-after: always;"></div>
 
 ### Deleting an attendance record: `dela`
 
@@ -390,6 +391,8 @@ Examples:
 ![AttendancePercentage](images/AttendancePercentage.png)
 
 </div>
+
+<div style="page-break-after: always;"></div>
 
 ### Adding/Removing/Editing a description: `description`
 
