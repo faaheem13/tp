@@ -62,18 +62,18 @@ NOTE: Users who are not familiar with using a CLI need not fret. Our commands ha
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-2. Download the latest `MustVas.jar` from [here](https://github.com/AY2324S2-CS2103T-T13-1/tp/releases).
+2. Download the latest `[CS2103T-T13-1][MustVas].jar` from [here](https://github.com/AY2324S2-CS2103T-T13-1/tp/releases).
 
 3. Copy the MustVas.jar file into a new folder, MyMustVas and save it under your Documents.
 
 4. Run the program. 
-   * 4a. **[For Mac Users]** Open a new command terminal and make sure that you are in the correct directory where MustVas.jar is in. You may use `cd` to navigate into the correct folder, and use the `ls` command to check that your jar file is actually there. Copy and paste this command `java -jar MustVas.jar` into your terminal. <br>
+   * 4a. **[For Mac Users]** Open a new command terminal and make sure that you are in the correct directory where `[CS2103T-T13-1][MustVas].jar` is in. You may use `cd` to navigate into the correct folder, and use the `ls` command to check that your jar file is actually there. Copy and paste this command `java -jar "[CS2103T-T13-1][MustVas].jar"` into your terminal. <br>
 _See our Terminal guide below._ <br>
-![TerminalInstructions](images/TerminalInstructions_jar.png)
+![TerminalInstructions](images/terminalnew.png)
 
-   * 4b. **[For Windows Users]** Open a new command prompt and make sure that you are in the correct directory where MustVas.jar is in. You may use `cd` to navigate into the correct folder, and use the `dir` command to check that your jar file is actually there. Copy and paste this command `java -jar MustVas.jar` into your command prompt. <br>
+   * 4b. **[For Windows Users]** Open a new command prompt and make sure that you are in the correct directory where `[CS2103T-T13-1][MustVas].jar` is in. You may use `cd` to navigate into the correct folder, and use the `dir` command to check that your jar file is actually there. Copy and paste this command `java -jar "[CS2103T-T13-1][MustVas].jar"` into your command prompt. <br>
 _See our Command Prompt guide below._ <br>
-![CommandPromptInstructions](images/command_prompt.png)
+![CommandPromptInstructions](images/cmdprompt.png)
 
 
 8. An interface similar to the below should appear in a few seconds. <br>
