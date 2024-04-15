@@ -169,21 +169,37 @@ The `create` command is used to create a class. Below is the sequence diagram wh
 
 <puml src="diagrams/CreateClassSequenceDiagram.puml" />
 
+The below activity diagram illustrates the process of creating a new class.
+
+<puml src="diagrams/CheckDuplicationForCreateClassCommand.puml" />
+
 ### Select Class feature
 
 The `select` command is used to select a class. Below is the sequence diagram when the `select` command is used.
 
 <puml src="diagrams/SelectClassCommandSequenceDiagram.puml" />
 
+The below activity diagram illustrates the process of selecting a class.
+
+<puml src="diagrams/CheckIfClassExistsForSelectClassCommand.puml" />
+
 ### Add feature
 The `add` command is used to add a new student. Below is the sequence diagram when the `add` command is used.
 
 <puml src="diagrams/AddCommandSequenceDiagram.puml" />
 
+The below activity diagram illustrates the process of adding a new student.
+
+<puml src="diagrams/CheckDuplicationForAddCommand.puml" />
+
 ### Edit feature
 The `edit` command is used to edit a student's information (name, phone, email, student id, description). Below is the sequence diagram when the `edit` command is used.
 
 <puml src="diagrams/EditCommandSequenceDiagram.puml" />
+
+The below activity diagram illustrates the process of editing a student.
+
+<puml src="diagrams/CheckIfStudentExistsForEditCommand.puml" />
 
 ### Add attendance record feature 
 
@@ -191,17 +207,29 @@ The `adda` command is used to add an attendance record to all students. Below is
 
 <puml src="diagrams/AddAttendanceRecordSequenceDiagram.puml" />
 
+The below activity diagram illustrates the process of adding a new attendance record.
+
+<puml src="diagrams/CheckDuplicationForAddAttendanceCommand.puml" />
+
 ### Edit attendance record feature
 
 The `edita` command is used to edit an attendance record of some students. Below is the sequence when the `edita` command is used.
 
 <puml src="diagrams/EditAttendanceCommandSequenceDiagram.puml" />
 
+The below activity diagram illustrates the process of editing an attendance records for the selected students.
+
+<puml src="diagrams/CheckIfDateExistsForEditAttendanceRecordCommand.puml" />
+
 ### Delete attendance record feature 
 
 The `dela` command is used to delete an attendance record of all students. Below is the sequence when the `dela` command is used.
 
 <puml src="diagrams/DeleteAttendanceRecordSequenceDiagram.puml" />
+
+The below activity diagram illustrates the process of deleting an attendance record.
+
+<puml src="diagrams/CheckIfDateExistsForDeleteAttendanceRecordCommand.puml" />
 
 
 ### \[Proposed\] Undo/redo feature
