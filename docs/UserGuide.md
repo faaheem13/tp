@@ -137,7 +137,7 @@ Attribute     | Prefix (Flag) | Remarks
 **Student ID**   | `s/` | Student Id must begin with A, followed by 7 digits, and end with a letter. The last letter will automatically become capitalised. <br>No duplication between students is allowed. <br>Example: `s/A1234567D`
 **Student Phone**   | `p/` | Phone must contain only 8 digits from `80000000` to `99999999`. <br>No duplication between students is allowed. <br>Example: `p/88889999`
 **Attendance Date**   | `ar/` | Date must be in the format of `dd-MM-yyyy`.<br>No duplication of attendance dates are allowed.<br>Example: `ar/01-01-2024`
-**Attendance Status**   | `st/` | The status must be either `0`, `1` or `2`. 0 for 'Absent', represented by a red cross ❌, 1 for 'Present', represented by a green tick ✅, and  2 for 'Valid Reason', represented by a blue dot 🔵<br>Example: `st/0`
+**Attendance Status**   | `st/` | The status must be either `0`, `1` or `2`. <br> - 0 for 'Absent', represented by a red cross ❌ <br> - 1 for 'Present', represented by a green tick ✅ <br> - 2 for 'Valid Reason', represented by a blue dot 🔵 <br>Example: `st/0`
 **Description**   | `desc/` | Any Characters allowed.<br> Description will only store the latest description.<br> Example: `desc/This student loves coding.`
 </box>
 
