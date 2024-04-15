@@ -42,7 +42,7 @@ NOTE: Users who are not familiar with using a CLI need not fret. Our commands ha
       - [Add attendance](#adding-an-attendance-record-adda)
       - [Delete attendance](#deleting-an-attendance-record-dela)
       - [Edit attendance](#editing-an-attendance-for-any-number-of-students-edita)
-      - [Add/Edit description](#addingediting-a-description-description)
+      - [Add/Remove/Edit description](#adding-removing-editing-a-description-description)
       - [List](#listing-a-class-to-view-list)
       - [Find](#locating-students-by-name-find)
       - [Clear](#clearing-all-entries-clear)
@@ -54,8 +54,6 @@ NOTE: Users who are not familiar with using a CLI need not fret. Our commands ha
 7. [Known Issues](#known-issues)
 8. [Command Summary](#command-summary)
 9. [Glossary](#glossary)
-
-<page-nav-print />
 
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
@@ -135,11 +133,11 @@ Attribute     | Prefix (Flag) | Remarks
 -----------|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------
 **Class Name**    | `c/` | Class name should only contain alphanumeric characters `[a-z, A-Z, 0-9]`. <br>No duplication between students is allowed. <br>Example: `c/cs2103`
 **Student Name**  | `n/` | Student name should only contain alphanumeric characters `[a-z, A-Z, 0-9]` and spaces. <br>Example: `n/John Teo`
-**Student Email** | `e/` | Emails should be of the format `local-part@domain-name` and adhere to the following constraints: <br>1. The `local-part` should only contain alphanumeric characters and these special characters `+_.-`.<br>2. The `local-part` may not start or end with any special characters.<br>3. This must be followed by an '@' and then a domain name.<br>4. The `domain-name` is made up of domain labels separated by periods.<br>5.The `domain-name` must end with a domain label at least 2 characters long. <br>6. Each domain label consist of alphanumeric characters, separated only by hyphens, if any.<br>7. Each domain label must start and end with alphanumeric characters (i.e., cannot start or end with hyphens).
-**Student Id**   | `s/` | Student Id must begin with A, followed by 7 digits, and end with a letter. The last letter will automatically become capitalised. <br>No duplication between students is allowed. <br>Example: `s/A1234567D`
+**Student Email** | `e/` | Emails should be of the format `local-part@domain-name` and adhere to the following constraints: <br>1. The `local-part` should only contain alphanumeric characters and these special characters `+_.-`.<br>2. The `local-part` may not start or end with any special characters.<br>3. This must be followed by an '@' and then a domain name.<br>4. The `domain-name` is made up of domain labels separated by periods.<br>5.The `domain-name` must end with a domain label at least 2 characters long. <br>6. Each domain label consist of alphanumeric characters, separated only by hyphens, if any.<br>7. Each domain label must start and end with alphanumeric characters (i.e., cannot start or end with hyphens). <br> No duplication between students is allowed. <br> Example: `e/johnd@gmail.com`
+**Student ID**   | `s/` | Student Id must begin with A, followed by 7 digits, and end with a letter. The last letter will automatically become capitalised. <br>No duplication between students is allowed. <br>Example: `s/A1234567D`
 **Student Phone**   | `p/` | Phone must contain only 8 digits from `80000000` to `99999999`. <br>No duplication between students is allowed. <br>Example: `p/88889999`
 **Attendance Date**   | `ar/` | Date must be in the format of `dd-MM-yyyy`.<br>No duplication of attendance dates are allowed.<br>Example: `ar/01-01-2024`
-**Attendance Status**   | `st/` | The status must be either `0`, `1` or `2`. 0 for 'Absent', represented by a red cross ❌, 1 for 'Present', represented by a green tick ✅, and  2 for 'Valid Reason', represented by a blue dot 🔵<br><br>Example: `st/0`
+**Attendance Status**   | `st/` | The status must be either `0`, `1` or `2`. <br> - 0 for 'Absent', represented by a red cross ❌ <br> - 1 for 'Present', represented by a green tick ✅ <br> - 2 for 'Valid Reason', represented by a blue dot 🔵 <br>Example: `st/0`
 **Description**   | `desc/` | Any Characters allowed.<br> Description will only store the latest description.<br> Example: `desc/This student loves coding.`
 </box>
 
@@ -184,6 +182,9 @@ Removes the specified class from the ClassBook, and deletes all students in the 
 Format: `rm INDEX`
 
 * Deletes the class at the specified `INDEX`.
+
+<div style="page-break-after: always;"></div>
+
 <div class="reminder" markdown="1" style="background-color: #f7f7f7; border-left: 6px solid #5bc0de; padding: 10px; margin-bottom: 20px;">
 
 ### 💡 <span style="color: #5bc0de;">Index information</span>
@@ -207,7 +208,6 @@ The index refers to the index number shown in the displayed class list. (e.g. CS
 Shows list of classes in result display.
   ![ViewCommand](images/ViewCommand2.png)
 * The index number shown in the displayed class list is used for [Remove](#removing-a-class-rm) and [Select](#selecting-a-class-to-view-select) (e.g. Use index 1 for CS2103)
-
 
 ### Selecting a class to view: `select`
 
@@ -242,6 +242,7 @@ If you see something like this (with the right class of course!) in the bottom l
 ![img_1.png](img_1.png)
 </div>
 
+<div style="page-break-after: always;"></div>
 
 ### Adding a student: `add`
 
@@ -263,7 +264,8 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL s/STUDENT_ID [desc/DESCRIPTION]`
 <p align="center">
     <img src="images/add_new_student_with_attendance.PNG" width="510" height="570">
 </p>
-  - You may see our [attendance features](#adding-an-attendance-record-adda) below for more information.
+
+ * You may see our [attendance features](#adding-an-attendance-record-adda) below for more information.
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@gmail.com s/A0251980B`: Adds a new student.
@@ -293,7 +295,9 @@ Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [s/STUDENT_ID] [desc/DES
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * If the input values for `PHONE_NUMBER`, `EMAIL` and `STUDENT_ID` already exist (including the target user), the command will be rejected.
-* The edit function does not allow the removal of a description, only updates to it. (i.e. If description is edited in this manner `desc/` in an attempt to remove the existing description, it will not work. Use [description](#addingediting-a-description-description) to remove existing description.)
+* The edit function does not allow the removal of a description, only updates to it. (i.e. If description is edited in this manner `desc/` in an attempt to remove the existing description, it will not work. Use [description](#adding-removing-editing-a-description-description) to remove existing description.)
+
+<div style="page-break-after: always;"></div>
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com`: Edits the phone number and email of the 1st person to be `91234567` and `johndoe@example.com` respectively.
@@ -326,6 +330,7 @@ Format: `adda ar/DATE`
 Examples:
 *  `adda ar/01-01-2024`: All the existing students will have a newly added attendance with date `01-01-2024` and a default status `1`.
 
+<div style="page-break-after: always;"></div>
 
 ### Editing an attendance for any number of students: `edita`
 
@@ -355,6 +360,8 @@ Examples:
 *  `edita 1 ar/01-01-2024 st/2`: Edits the attendance status of the 1st student for `01-01-2024` to `2`, indicating absence with a valid reason.
 *  `edita 2, 3 ar/01-01-2024 st/0`: Edits the attendance status of the 2nd and 3rd student for `01-01-2024` to `0`, indicating absence.
 
+<div style="page-break-after: always;"></div>
+
 ### Deleting an attendance record: `dela`
 
 Deletes the specified attendance date from all the student's list of attendance records in StudentBook.
@@ -372,6 +379,8 @@ Format: `dela ar/DATE`
 Examples:
 * `dela ar/02-02-2024`: Deletes the attendance record, `02-02-2024`, from all students' existing list of attendance records.
 
+<div style="page-break-after: always;"></div>
+
 <div class="reminder" markdown="1" style="background-color: #f7f7f7; border-left: 6px solid #5bc0de; padding: 10px; margin-bottom: 20px;">
   
 ### 💡 <span style="color: #5bc0de;">Additional tips for Attendance taking</span>
@@ -385,6 +394,8 @@ Examples:
 ![AttendancePercentage](images/AttendancePercentage.png)
 
 </div>
+
+<div style="page-break-after: always;"></div>
 
 ### Adding/Removing/Editing a description: `description`
 
@@ -529,6 +540,8 @@ Action     | Format, Examples
 **Delete Attendance** | `dela ar/DATE` <br> e.g., `dela ar/02-02-2024`
 **Add\Edit Description** | `description INDEX desc/DESCRIPTION` <br> e.g., `description 1 desc/Loves coding`
 
+
+<div style="page-break-after: always;"></div>
 
 ## Glossary
 Term     | Abbreviations | Definition 
