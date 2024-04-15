@@ -395,7 +395,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1.  User enters the program.
 2.  MustVas shows a list of classes.
-3.  User [selects a class (UC-03)](#use-case-select-a-class-of-students-to-manage-uc-04).
+3.  User [selects a class (UC-04)](#use-case-select-a-class-of-students-to-manage-uc-04).
 
  Use case ends.
 
