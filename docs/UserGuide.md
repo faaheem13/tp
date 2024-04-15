@@ -265,7 +265,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL s/STUDENT_ID [desc/DESCRIPTION]`
     <img src="images/add_new_student_with_attendance.PNG" width="510" height="570">
 </p>
 
-  - You may see our [attendance features](#adding-an-attendance-record-adda) below for more information.
+ * You may see our [attendance features](#adding-an-attendance-record-adda) below for more information.
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@gmail.com s/A0251980B`: Adds a new student.
