@@ -295,7 +295,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [s/STUDENT_ID] [desc/DES
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * If the input values for `PHONE_NUMBER`, `EMAIL` and `STUDENT_ID` already exist (including the target user), the command will be rejected.
-* The edit function does not allow the removal of a description, only updates to it. (i.e. If description is edited in this manner `desc/` in an attempt to remove the existing description, it will not work. Use [description](#addingediting-a-description-description) to remove existing description.)
+* The edit function does not allow the removal of a description, only updates to it. (i.e. If description is edited in this manner `desc/` in an attempt to remove the existing description, it will not work. Use [description](#adding-removing-editing-a-description-description) to remove existing description.)
 
 <div style="page-break-after: always;"></div>
 
