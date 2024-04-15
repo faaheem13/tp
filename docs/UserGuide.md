@@ -240,6 +240,7 @@ If you see something like this (with the right class of course!) in the bottom l
 ![img_1.png](img_1.png)
 </div>
 
+<div style="page-break-after: always;"></div>
 
 ### Adding a student: `add`
 
@@ -369,6 +370,8 @@ Format: `dela ar/DATE`
 
 Examples:
 * `dela ar/02-02-2024`: Deletes the attendance record, `02-02-2024`, from all students' existing list of attendance records.
+
+<div style="page-break-after: always;"></div>
 
 <div class="reminder" markdown="1" style="background-color: #f7f7f7; border-left: 6px solid #5bc0de; padding: 10px; margin-bottom: 20px;">
   
