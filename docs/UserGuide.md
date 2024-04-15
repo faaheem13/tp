@@ -540,6 +540,7 @@ Action     | Format, Examples
 **Delete Attendance** | `dela ar/DATE` <br> e.g., `dela ar/02-02-2024`
 **Add\Edit Description** | `description INDEX desc/DESCRIPTION` <br> e.g., `description 1 desc/Loves coding`
 
+
 <div style="page-break-after: always;"></div>
 
 ## Glossary
