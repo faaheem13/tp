@@ -22,40 +22,43 @@ Having been built for TAs by TAs, MustVas is specifically designed for Teaching 
 In this User Guide, you will be learning key tips and tricks to make your experience with MustVas useful and handy. This User Guide will cover the main features of the app and provide you with clear instructions on how to effectively utilize our product with relevant examples to get you started! By following these instructions, you can maximize your understanding and proficiency of using our product to its fullest potential. Whether you're a novice or an experienced user, this guide offers step-by-step instructions, clarifications, and best practices to enhance your overall experience. We hope that MustVas's user guide will provide a new and better way for you to manage your students in the long run.
 
 ## How can you use this guide?
-Simply navigate to our features section for a thorough read through, or click on a specific section to review in our Table of Contents for any queries you might have. Do keep a lookout for the frequently asked questions down below which may help you address some basic common questions! Lastly, our command summary will be useful as a reference for the key command prompts to use in MustVas. 
+You may first want to read through our [glossary](#glossary) to have a better understanding of terms that you might be unfamiliar with. For more information on MustVas' features, simply navigate to our features section for a thorough read through, or click on a specific section to review in our Table of Contents. Do keep a lookout for the frequently asked questions down below which may help you address some basic common questions! Lastly, our command summary will be useful as a reference for the key command prompts to use in MustVas. 
 
 NOTE: Users who are not familiar with using a CLI need not fret. Our commands have been specifically catered to a beginner's use - they are simple and easy to learn! Assistance is also provided automatically whenever there is an invalid command. 
 
-<!-- * Table of Contents -->
+<div style="page-break-after: always;"></div>
+
 ## Table Of Contents
 1. [Quick Start](#quick-start)
 2. [Features](#features)
-    - [Help](#viewing-help--help)
-    - [Create class](#creating-a-class--create)
-    - [Remove class](#removing-a-class--rm)
-    - [View classes](#viewing-the-classes--view)
-    - [Select class](#selecting-a-class-to-view--select)
-      - [Add student](#adding-a-student--add)
-      - [Delete student](#deleting-a-student--delete)
-      - [Edit student](#editing-a-student--edit)
-      - [Add attendance](#adding-an-attendance-record--adda)
-      - [Delete attendance](#deleting-an-attendance-record--dela)
-      - [Edit attendance](#editing-an-attendance-for-any-number-of-students--edita)
-      - [Add/Edit description](#addingediting-a-description--description)
-      - [List](#listing-a-class-to-view--list)
-      - [Find](#locating-students-by-name--find)
-      - [Clear](#clearing-all-entries--clear)
-    - [Exit](#exiting-the-program--exit)
+    - [Help](#viewing-help-help)
+    - [Create class](#creating-a-class-create)
+    - [Remove class](#removing-a-class-rm)
+    - [View classes](#viewing-the-classes-view)
+    - [Select class](#selecting-a-class-to-view-select)
+      - [Add student](#adding-a-student-add)
+      - [Delete student](#deleting-a-student-delete)
+      - [Edit student](#editing-a-student-edit)
+      - [Add attendance](#adding-an-attendance-record-adda)
+      - [Delete attendance](#deleting-an-attendance-record-dela)
+      - [Edit attendance](#editing-an-attendance-for-any-number-of-students-edita)
+      - [Add/Edit description](#addingediting-a-description-description)
+      - [List](#listing-a-class-to-view-list)
+      - [Find](#locating-students-by-name-find)
+      - [Clear](#clearing-all-entries-clear)
+    - [Exit](#exiting-the-program-exit)
 3. [Saving the data](#saving-the-data)
 4. [Editing the data file](#editing-the-data-file)
 5. [Coming Soon...](#coming-soon)
 6. [Frequently Asked Questions](#faq)
 7. [Known Issues](#known-issues)
 8. [Command Summary](#command-summary)
+9. [Glossary](#glossary)
 
 <page-nav-print />
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## Quick start
 
@@ -73,9 +76,11 @@ _See our Terminal guide below._ <br>
    * 4b. **[For Windows Users]** Open a new command prompt and make sure that you are in the correct directory where MustVas.jar is in. You may use `cd` to navigate into the correct folder, and use the `dir` command to check that your jar file is actually there. Copy and paste this command `java -jar MustVas.jar` into your command prompt. <br>
 _See our Command Prompt guide below._ <br>
 ![CommandPromptInstructions](images/command_prompt.png)
+
+
 8. An interface similar to the below should appear in a few seconds. <br>
    ![Ui](images/UI_initial.png)
-
+   
 9. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
@@ -102,6 +107,7 @@ _See our Command Prompt guide below._ <br>
 10. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## Features
 
@@ -123,22 +129,26 @@ _See our Command Prompt guide below._ <br>
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 
-## Attribute Summary (Prefixes): 
+### Attribute Summary (Prefixes): 
 The meaning of each prefix is listed below:
 Attribute     | Prefix (Flag) | Remarks 
 -----------|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------
-**Class Name**    | `c/` | Class name should only contain alphanumeric characters `[a-z, A-Z, 0-9]`. <br>No duplication is allowed. <br>Example: `c/cs2103`
+**Class Name**    | `c/` | Class name should only contain alphanumeric characters `[a-z, A-Z, 0-9]`. <br>No duplication between students is allowed. <br>Example: `c/cs2103`
 **Student Name**  | `n/` | Student name should only contain alphanumeric characters `[a-z, A-Z, 0-9]` and spaces. <br>Example: `n/John Teo`
-**Student Email** | `e/` | No duplication is allowed. <br> Example: `e/jane@gmail.com`
-**Student Id**   | `s/` | Student Id must begin with A, followed by 7 digits, and end with a letter. The last letter will automatically become capitalised. <br>No duplication is allowed. <br>Example: `s/A1234567D`
-**Student Phone**   | `p/` | Phone must contain only 8 digits from `80000000` to `99999999`. <br>No duplication is allowed. <br>Example: `p/88889999`
-**Attendance Date**   | `ar/` | Date must be in the format of `dd-MM-yyyy`. <br>No duplication is allowed. <br>Example: `ar/01-01-2024`
-**Attendance Status**   | `st/` | The status must be either `0`, `1` or `2`. <br>Example: `st/0`
-**Description**   | `desc/` | Description will only keep the latest description. <br> Example: `desc/This student loves coding.`
+**Student Email** | `e/` | Emails should be of the format `local-part@domain-name` and adhere to the following constraints: <br>1. The `local-part` should only contain alphanumeric characters and these special characters `+_.-`.<br>2. The `local-part` may not start or end with any special characters.<br>3. This must be followed by an '@' and then a domain name.<br>4. The `domain-name` is made up of domain labels separated by periods.<br>5.The `domain-name` must end with a domain label at least 2 characters long. <br>6. Each domain label consist of alphanumeric characters, separated only by hyphens, if any.<br>7. Each domain label must start and end with alphanumeric characters (i.e., cannot start or end with hyphens).
+**Student Id**   | `s/` | Student Id must begin with A, followed by 7 digits, and end with a letter. The last letter will automatically become capitalised. <br>No duplication between students is allowed. <br>Example: `s/A1234567D`
+**Student Phone**   | `p/` | Phone must contain only 8 digits from `80000000` to `99999999`. <br>No duplication between students is allowed. <br>Example: `p/88889999`
+**Attendance Date**   | `ar/` | Date must be in the format of `dd-MM-yyyy`.<br>No duplication of attendance dates are allowed.<br>Optional field. <br>Example: `ar/01-01-2024`
+**Attendance Status**   | `st/` | The status must be either `0`, `1` or `2`. 0 for 'Absent', represented by a red cross ❌, 1 for 'Present', represented by a green tick ✅, and  2 for 'Valid Reason', represented by a blue dot 🔵<br>Optional field.<br>Example: `st/0`
+**Description**   | `desc/` | Any Characters allowed.<br> Description will only store the latest description.<br>Optional field.<br> Example: `desc/This student loves coding.`
 </box>
 
+--------------------------------------------------------------------------------------------------------------------
 
-### Viewing help : `help`
+<div style="page-break-after: always;"></div>
+
+
+### Viewing help: `help`
 
 Shows a message with a link to our help page.
 
@@ -146,11 +156,13 @@ Shows a message with a link to our help page.
 
 Format: `help`
 
-### Creating a class : `create`
+### Creating a class: `create`
 
 Creates a new class.
 
-![CreateClassCommand](images/CreateClassCommand.png)
+<p align="center">
+    <img src="images/CreateClassCommand.png" width="510" height="580">
+</p>
 
 Format: `create c/CLASS_NAME`
 
@@ -161,7 +173,7 @@ Examples:
 * `create c/CS2101`: Creates a class with course code 'CS2101'.
 * `create c/CS2103T`: Creates a class with course code 'CS2103T'.
 
-### Removing a class : `rm`
+### Removing a class: `rm`
 
 Removes the specified class from the ClassBook, and deletes all students in the class.
 
@@ -177,26 +189,30 @@ The index refers to the index number shown in the displayed class list. (e.g. CS
 
 </div>
 
-![RemoveClass](images/RemoveClassResult.png)
+<p align="center">
+    <img src="images/RemoveClassResult.png" width="510" height="580">
+</p>
+
 * Removes the class from your ClassBook and entire StudentBook from that class as well, `[JAR file location]/data/classbook/[ClassName].json` will be simultaneously deleted.
 * Any classes that are currently selected will be unselected, in order to prevent any accidental modification to your data.
 * `.\No class selected!` will be displayed on the bottom left.
 
 
-### Viewing the classes : `view`
+### Viewing the classes: `view`
 
 Shows list of classes in result display.
+  ![ViewCommand](images/ViewCommand2.png)
+* The index number shown in the displayed class list is used for [Remove](#removing-a-class-rm) and [Select](#selecting-a-class-to-view-select) (e.g. Use index 1 for CS2103)
 
-![ViewCommand](images/ViewCommand2.png)
-* The index number shown in the displayed class list is used for [Remove](#removing-a-class--rm) and [Select](#selecting-a-class-to-view--select) (e.g. Use index 1 for CS2103)
 
-
-### Selecting a class to view : `select`
+### Selecting a class to view: `select`
 
 Shows the list of all students in the selected class.
 Allows you to modify and view the class.
 
-![img_1.png](images/SelectCommand.png)
+<p align="center">
+    <img src="images/SelectCommand.png" width="530" height="625">
+</p>
 
 Format: `select INDEX`
 
@@ -206,10 +222,10 @@ Format: `select INDEX`
 
 * In the bottom left corner, you will see the current class file open. In this case, it's `.\data\classbook\CS2103.json`
 
-* The file will always named in the format `CLASS_NAME.json`
+* The file will always be named in the format `CLASS_NAME.json`
 
 
-# Working with your class
+## Working with your class
 <div class="reminder" markdown="1" style="background-color: #f7f7f7; border-left: 6px solid #5bc0de; padding: 10px; margin-bottom: 20px;">
 
 ### 💡 <span style="color: #5bc0de;">Reminder</span>
@@ -223,11 +239,13 @@ If you see something like this (with the right class of course!) in the bottom l
 </div>
 
 
-### Adding a student : `add`
+### Adding a student: `add`
 
 Adds a student to the StudentBook.
 
-![add_new_student_with_no_attendance](images/add_new_student_with_not_attendance.jpg)
+<p align="center">
+    <img src="images/add_new_student_with_not_attendance.jpg" width="510" height="570">
+</p>
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL s/STUDENT_ID [desc/DESCRIPTION]`
 
@@ -238,14 +256,16 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL s/STUDENT_ID [desc/DESCRIPTION]`
 * The newly added student will be automatically positioned alphabetically by name.
 * The description field is optional. You may write any description for the new student. However, **only one description is allowed**. The old description will be replaced with the new description when editing or adding a new description when one already exists.
 * If there are existing attendance records allocated to the existing students, the newly added student will have a default status of '2' (meaning Valid Reason) for these existing attendance records. Please refer to the image below for illustration.
-![add_new_student_with_attendance](images/add_new_student_with_attendance.PNG)
-  - You may see our [attendance features](#adding-an-attendance-record--adda) below for more information.
+<p align="center">
+    <img src="images/add_new_student_with_attendance.PNG" width="510" height="570">
+</p>
+  - You may see our [attendance features](#adding-an-attendance-record-adda) below for more information.
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@gmail.com s/A0251980B`: Adds a new student.
 * `add n/John Doe p/98765432 e/johnd@gmail.com s/A0251980B desc/Enjoy coding`: Adds a new student with a description.
 
-### Deleting a student : `delete`
+### Deleting a student: `delete`
 
 Deletes the specified student from the StudentBook.
 
@@ -259,7 +279,7 @@ Examples:
 * `list` followed by `delete 2`: Deletes the 2nd person in the StudentBook.
 * `find Betsy` followed by `delete 1`: Deletes the 1st student in the results of the `find` command.
 
-### Editing a student : `edit`
+### Editing a student: `edit`
 
 Edits an existing student in the StudentBook.
 
@@ -269,16 +289,19 @@ Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [s/STUDENT_ID] [desc/DES
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * If the input values for `PHONE_NUMBER`, `EMAIL` and `STUDENT_ID` already exist (including the target user), the command will be rejected.
+* The edit function does not allow the removal of a description, only updates to it. (i.e. If description is edited in this manner `desc/` in an attempt to remove the existing description, it will not work. Use [description](#addingediting-a-description-description) to remove existing description.)
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com`: Edits the phone number and email studentId of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 1 p/91234567 e/johndoe@example.com`: Edits the phone number and email of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower`: Edits the name of the 2nd person to be `Betsy Crower`.
 
-### Adding an attendance record : `adda`
+### Adding an attendance record: `adda`
 
-Add an attendance record to all existing students in the studentId book.
+Add an attendance record to all existing students in the StudentBook.
 
-![add_attendance_command](images/add_attendance_command.png)
+<p align="center">
+    <img src="images/add_attendance_command.png" width="510" height="570">
+</p>
 
 Format: `adda ar/DATE`
 
@@ -294,17 +317,19 @@ Format: `adda ar/DATE`
     - 0 for 'Absent', represented by a red cross ❌ 
     - 1 for 'Present', represented by a green tick ✅ 
     - 2 for 'Valid Reason', represented by a blue dot 🔵 
-* To edit the status value, do refer to the [edita](#editing-an-attendance-for-any-number-of-students--edita) command below.
+* To edit the status value, do refer to the [edita](#editing-an-attendance-for-any-number-of-students-edita) command below.
   </div>
 Examples:
 *  `adda ar/01-01-2024`: All the existing students will have a newly added attendance with date `01-01-2024` and a default status `1`.
 
 
-### Editing an attendance for any number of students : `edita`
+### Editing an attendance for any number of students: `edita`
 
-Edits the existing attendance record in the student's list of attendance in the studentId book. **Any number of students** can be edited in one go.
+Edits the existing attendance record in the student's list of attendance in the StudentBook. **Any number of students** can be edited in one go.
 
-![edit_attendance_command_mulitple](images/edit_attendance_command_mulitple.PNG)
+<p align="center">
+    <img src="images/edit_attendance_command_mulitple.PNG" width="510" height="570">
+</p>
 
 Format: `edita INDEX1, INDEX2, …​ ar/DATE st/STATUS`
 
@@ -315,7 +340,7 @@ Format: `edita INDEX1, INDEX2, …​ ar/DATE st/STATUS`
   * The entered date, `DATE`, must exist in the student's existing list of attendance dates.
 <div class="reminder" markdown="1" style="background-color: #f7f7f7; border-left: 6px solid #5bc0de; padding: 10px; margin-bottom: 20px;">
   
-### 💡 <span style="color: #5bc0de;">Reminder</span>
+### 💡 <span style="color: #5bc0de;">Recall Status information </span>
   * Recall the representation and valid inputs for `STATUS`:
     - 0 for 'Absent', represented by a red cross ❌ 
     - 1 for 'Present', represented by a green tick ✅ 
@@ -326,11 +351,13 @@ Examples:
 *  `edita 1 ar/01-01-2024 st/2`: Edits the attendance status of the 1st student for `01-01-2024` to `2`, indicating absence with a valid reason.
 *  `edita 2, 3 ar/01-01-2024 st/0`: Edits the attendance status of the 2nd and 3rd student for `01-01-2024` to `0`, indicating absence.
 
-### Deleting an attendance record : `dela`
+### Deleting an attendance record: `dela`
 
-Deletes the specified attendance date from all the student's list of attendance records in studentId book.
+Deletes the specified attendance date from all the student's list of attendance records in StudentBook.
 
-![delete_attendance_command](images/delete_attendance_command.png)
+<p align="center">
+    <img src="images/delete_attendance_command.png" width="510" height="570">
+</p>
 
 Format: `dela ar/DATE`
 
@@ -341,37 +368,47 @@ Format: `dela ar/DATE`
 Examples:
 * `dela ar/02-02-2024`: Deletes the attendance record, `02-02-2024`, from all students' existing list of attendance records.
 
-**Additional tips for Attendance taking** <br>
+<div class="reminder" markdown="1" style="background-color: #f7f7f7; border-left: 6px solid #5bc0de; padding: 10px; margin-bottom: 20px;">
+  
+### 💡 <span style="color: #5bc0de;">Additional tips for Attendance taking</span>
 - For quick attendance taking, here are the 3-4 steps that you can take:
   1. Use the `adda` command to mark everyone as present.
   2. Find the indexes of students who are absent and those who have valid reasons.
   3. Use the `edita` command to mark them as absent/having a valid reason at one shot.
-- Moreover, to facilitate easier reading of a student's attendance records, we have an attendance percentage bar (see highlights below) that displays the overall score of a student's attendance that you can view at a quick glance. The attendance percentage is calculated by this formula `(# of present + # of valid) / # of attendance records`
+- Moreover, to facilitate easier reading of a student's attendance records, we have an attendance percentage bar (see highlights below) that displays the overall score of a student's attendance that you can view at a quick glance. The attendance percentage is calculated by this formula:
+  > `(# of present + # of valid) / # of attendance records`
 
 ![AttendancePercentage](images/AttendancePercentage.png)
 
-### Adding\Editing a description : `description`
+</div>
+
+### Adding/Removing/Editing a description: `description`
 
 Adds a description to the selected student or Updates an already existing description of the selected student with the given description.
 
-![DescriptionCommand](images/DescriptionCommand.jpg)
+<p align="center">
+    <img src="images/DescriptionCommand.jpg" width="590" height="630">
+</p>
 
 Format: `description INDEX desc/DESCRIPTION`
 
 * **Only one description is allowed**. The old description will be replaced with the new description (i.e., when we add/edit a description when one already exists.)
 * **Can use special characters**. To accommodate for adding tele handles, percentages/grades, dates etc.
 
-Examples:
-*  `description 1 desc/Loves coding`: Adds a description `Loves coding` to first student.
-*  `description 2 desc/Absent on 29/04/2023 due to Case Competition`: Adds a description `Absent on 29/04/2023 due to Case Competition` to second student on the list.
 
-### Listing a class to view : `list`
+Examples:
+*  `description 1 desc/Loves coding`: Adds/Edits a description `Loves coding` to first student on the list.
+*  `description 2 desc/Absent on 29/04/2023 due to Case Competition`: Adds/Edits a description `Absent on 29/04/2023 due to Case Competition` to second student on the list.
+*  `description 1 desc/`: Removes existing description from first student on the list.
+
+
+### Listing a class to view: `list`
 
 Lists all students in the class.
 
 Format: `list`
 
-### Locating students by name : `find`
+### Locating students by name: `find`
 
 Finds students whose names contain any of the given keywords.
 
@@ -386,18 +423,18 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 * `find andrew`: Returns `andrew` and `Andrew`
-
-  ![Find example 1](images/FindCommandCapsInsensitive.png)
 * `find nic faaheem` returns `nic`, `faaheem`<br>
-  ![result for 'find nic faaheem'](images/FindExample2.png)
 * `find John Doe` returns `John Doe`, `Johnathan Doe`, `Johnette Doe`<br>
-    ![result for 'find john doe'](images/FindExample3.png)
+
+  <p align="center">
+    <img src="images/FindExample3.png" width="510" height="570">
+  </p>
 
 
 **Warning**
 > If multiple search terms are used, all search terms will be matched with full words as well as incomplete words!
 
-### Clearing all entries : `clear`
+### Clearing all entries: `clear`
 
 Clears all entries from the StudentBook in a selected class.
 <div markdown="block" class="alert alert-danger">
@@ -406,7 +443,7 @@ Clears all entries from the StudentBook in a selected class.
 
 Format: `clear`
 
-### Exiting the program : `exit`
+### Exiting the program: `exit`
 
 Exits the program.
 
@@ -432,6 +469,7 @@ ClassBook and StudentBook data are saved automatically as a JSON file `[JAR file
 **Clear All**: Instead of manually using the `rm` command to remove each individual class, or the `clear` command to clear the selected StudentBook, this feature will clear all data (including ClassBooks and their respective StudentBooks), increasing convenience for users.
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## FAQ
 
@@ -439,16 +477,18 @@ ClassBook and StudentBook data are saved automatically as a JSON file `[JAR file
 **A**: Ensure that Java 11 or above is installed in your operating system. To check if you have Java 11 or above, open the Command Prompt and type in `java -version`. Once verified, navigate to the program's directory and type in `java -jar MustVas.jar` in the Command Prompt. 
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous MustVas home folder.
 
 **Q**: How can I see the class that I am on right now? <br>
 **A**: You can see the class that you have currently selected in the bottom left corner of the application (as shown below). <br>
+
 ![selected_class_showing](images/SelectedClassFAQ.png)
 
 **Q**: How can I manually delete students/classes? <br>
 **A**: Find your data folder in your home directory where MustVas is stored. In this folder, you will see the `classbook.json` file that contains the list of _courseCode_s, as well as another classbook folder that contains the individual `.json` files of the StudentBook, named after its class name. 
 ![manually delete class](images/ManuallyDeleteFiles.png)
-- You may delete the individual StudentBook by deleting its individual .json file under the classbook folder. Do note that doing so will be akin to using the `clear` command on that class, effectively setting an empty StudentBook to be used.
+
+- You may delete the individual StudentBook by deleting its individual `.json` file under the classbook folder. Do note that doing so will be akin to using the `clear` command on that class, effectively setting an empty StudentBook to be used.
 - However, if you do intend to manually delete an entire class, do remember to delete both its _courseCode_ field in `classbook.json` and its respective `.json` file in the classbook folder. Otherwise, deleting just the _courseCode_ field in the `classbook.json` file would cause the same StudentBook to be used if a class of the same _courseCode_ is created again (i.e. `create c/class5` would reuse its old StudentBook with its old student contacts and not create a new empty StudentBook).
 
 **Q**: How do I fix "This student already exists in the class" error? <br>
@@ -463,6 +503,7 @@ ClassBook and StudentBook data are saved automatically as a JSON file `[JAR file
 2. **When using view after selecting a class**, if you are viewing your list of classes after having selected a class, the StudentBook of the previously selected class is still considered selected (and will be displayed). Any commands entered to modify this class will take effect until another class is selected from the list of classes.
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## Command summary
 
@@ -483,3 +524,21 @@ Action     | Format, Examples
 **Edit Attendance**  | `edita INDEX1, INDEX2, …​ ar/DATE st/STATUS` <br> e.g., `edita 1 ar/01-01-2024 st/2`
 **Delete Attendance** | `dela ar/DATE` <br> e.g., `dela ar/02-02-2024`
 **Add\Edit Description** | `description INDEX desc/DESCRIPTION` <br> e.g., `description 1 desc/Loves coding`
+
+
+## Glossary
+Term     | Abbreviations | Definition 
+-----------|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------
+**Command Line Interface**    | CLI | A text-based interface for interacting with a computer system or program by typing commands into a terminal or command prompt.
+**Graphical User Interface**  | GUI |  A visual interface that allows users to interact with a computer system or program through graphical elements such as windows, icons, buttons, and menus.
+**Command Prompt**   | - | A command line interpreter application available in most Windows operating systems that allows users to enter commands to perform tasks.
+**Terminal**   | - | A text-based interface for interacting with a computer system or program by typing commands, commonly found in Unix-like operating systems.
+**Change Directory** | `cd` | A command used in command line interfaces to change the current working directory to a specified location within the file system.
+<sup>[1](#1-not-to-be-confused-with-mustvas-list-command)</sup>**List**   | `ls` | A command used in command line interfaces to list the contents of a directory or folder.
+**Directory**   | `dir` | A command used in command line interfaces, particularly in Windows operating systems, to list the contents of a directory or folder.
+**Java ARchive**   | `jar` or <br> `JAR` | A file format used to package Java class files, associated metadata, and resources into a single file for distribution or deployment.
+**JavaScript Object Notation** | `json` or <br> `JSON` | A file format that is easy for humans to read and write, and easy for machines to parse and generate, commonly used for transmitting data between a server and a web application.
+**ClassBook** | - | List of classes created by user.
+**StudentBook** | - | List of students within each class created by user.
+
+#### <sup>1</sup> Not to be confused with MustVas' `list` command.

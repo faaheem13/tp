@@ -13,7 +13,7 @@
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+MustVas was adapted from [AB-3](https://se-education.org/addressbook-level3/DeveloperGuide.html).
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -286,7 +286,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 **Aspect: How undo & redo executes:**
 
-* **Alternative 1 (current choice):** Saves the entire studentId book.
+* **Alternative 1 (current choice):** Saves the entire StudentBook.
   * Pros: Easy to implement.
   * Cons: May have performance issues in terms of memory usage.
 
@@ -294,12 +294,6 @@ The following activity diagram summarizes what happens when a user executes a ne
   itself.
   * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
 
 
 # Implementation of Classes feature
@@ -371,25 +365,26 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 | Priority | As a …​                                     | I want to …​                                        | So that I can…​                                                         |
 |----------|--------------------------------------------|----------------------------------------------------|------------------------------------------------------------------------|
-| `* *`    | New user exploring the app                 | Access the user guide easily via a help button     | Learn how to use the app                                               |
 | `* * *`  | User who teaches multiple classes          | View my classes                                    | See all the classes I'm currently managing at a glance                 |
 | `* * *`  | User who teaches multiple classes          | Select the class that I want to manage             | Easily manage multiple classes                                         |       
 | `* * *`  | User who teaches multiple classes          | Create new class                                   | Separate students into their respective classes                        |
 | `* * *`  | User who teaches multiple classes          | Delete class                                       | Remove classes that is not needed anymore                              |
 | `* * *`  | User who manages students                  | Add a new student to the class                     | Keep track of my students' profiles                                    |
 | `* * *`  | User who manages students                  | Delete a student from the class                    | Keep an updated record of students in the class                        |
+| `* * *`  | User who manages student attendance        | Create an attendance record for my students        | Acknowledge a student's attendance (PRESENT, ABSENT, VALID REASON)     | 
+| `* * *`  | User who manages student attendance        | Delete an attendance record                        | Remove any unnecessary attendance records                              |
 | `* *`    | User who manages students                  | Write descriptions for each student                | Take note of certain students based on the description                 |
 | `* *`    | User who manages students                  | Create assignments and grades for each student     | Track my student's grades                                              |
-| `* * *`  | User who manages student attendance        | Create an attendance record for my students        | Acknowledge a student's attendance (PRESENT, ABSENT, VALID REASON)     | 
 | `* *`    | User who manages student attendance        | Edit the attendance record of students             | Conveniently make changes to attendance when necessary                 |
-| `* * *`  | User who manages student attendance        | Delete an attendance record                        | Remove any unnecessary attendance records                              |
 | `* *`    | User who manages student attendance        | View the attendance rate of a student              | Easily view the student's overall attendance rate at one glance        |
 | `* *`    | Organised user                             | Browse students in the default alphabetical setting| easily scroll to find a particular contact                             |
+| `* *`    | New user exploring the app                 | Access the user guide easily via a help button     | Learn how to use the app                                               |
 | `* `     | Forgetful user                             | Schedule reminders for specific contact            | Don't miss important dates or admin tasks                              |
 | `* `     | User who uses Canvas LMS                   | Import the attendance data into Canvas             | Easily upload attendance statistics for the school admin               |
 | `* `     | User who looking to be more efficient      | Send emails/texts to an entire class               | Easily communicate information to the students                         |
 | `* `     | User who looking to be more efficient      | Generate attendance reports                        | Easily submit them to school admin                                     |
 | `* `     | User who looking to be more efficient      | Export Student date in multiple formats (etc. PDF) | Share the data with other tutors or professors easily                  |
+
 ## Use cases
 
 (For all use cases below, the **System** is the `MustVas` and the **Actor** is the `user`, unless specified otherwise)
@@ -475,7 +470,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User enters the program (MustVas).
-2. User [selects a class (UC-03)](#use-case-select-a-class-of-students-to-manage-uc-04).
+2. User [selects a class (UC-04)](#use-case-select-a-class-of-students-to-manage-uc-04).
 3. User then inputs the command 'add' to check how to enter command.
 4. User then inputs details for the command 'add'.
 5. MustVas then adds the student to the selected class and displays all relevant details in the console.
@@ -500,7 +495,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User enters the program (MustVas).
-2. User [selects a class (UC-03)](#use-case-select-a-class-of-students-to-manage-uc-04).
+2. User [selects a class (UC-04)](#use-case-select-a-class-of-students-to-manage-uc-04).
 3. User inputs the command to delete a student record from selected class.
 4. MustVas confirms the deletion and removes the student from the selected class.
 
@@ -518,7 +513,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User enters the program (MustVas).
-2. User [selects a class (UC-03)](#use-case-select-a-class-of-students-to-manage-uc-04).
+2. User [selects a class (UC-04)](#use-case-select-a-class-of-students-to-manage-uc-04).
 3. User inputs the command to add an attendance record for all students.
 4. MustVas confirms the added attendance, stores the attendance records for all students in the class, and show the updated attendance records.
 
@@ -542,7 +537,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1. User enters the program (MustVas).
 2. MustVas shows the layout of the program.
-3. User [selects a class (UC-03)](#use-case-select-a-class-of-students-to-manage-uc-04).
+3. User [selects a class (UC-04)](#use-case-select-a-class-of-students-to-manage-uc-04).
 4. User inputs the command to edit an attendance record for some students.
 5. MustVas confirms the edited attendance records, stores the attendance records for the selected students in the class, and show the updated attendance records.
 
@@ -560,13 +555,13 @@ Use case ends.
 
   Use case ends.
 
-### Use case: Add attendance record for a class of students (UC-09)
+### Use case: Delete attendance record for a class of students (UC-09)
 
 **MSS**
 
 1. User enters the program (MustVas).
 2. MustVas shows the layout of the program.
-3. User [selects a class (UC-03)](#use-case-select-a-class-of-students-to-manage-uc-04).
+3. User [selects a class (UC-04)](#use-case-select-a-class-of-students-to-manage-uc-04).
 4. User inputs the command to delete an attendance record for all students.
 5. MustVas confirms the deleted attendance records, stores the existing attendance records for all students in the class, and show the updated attendance records.
 
@@ -589,7 +584,7 @@ Use case ends.
 **MSS**
 
 1. User enters the program (MustVas).
-2. User [selects a class (UC-03)](#use-case-select-a-class-of-students-to-manage-uc-04).
+2. User [selects a class (UC-04)](#use-case-select-a-class-of-students-to-manage-uc-04).
 3. User inputs the command to add description to a student.
 4. User inputs the description details.
 5. MustVas saves the description for the selected student.
@@ -613,7 +608,7 @@ Use case ends.
 **MSS**
 
 1. User enters the program (MustVas).
-2. User User request to [view the list of classes](#use-case-view-list-of-classes-uc-03).
+2. User inputs command to [view the list of classes](#use-case-view-list-of-classes-uc-03).
 3. User inputs the command to remove a class.
 4. User selects the class to be removed from the list.
 5. MustVas removes the selected class and all associated data from the system.
@@ -648,8 +643,10 @@ Use case ends.
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
 * **Json File**: A file to store the data used in the program
+* **MSS**: Main Success Scenario which outlines the steps that users take when using the product in various scenarios
+* **ClassBook**: List of classes
+* **StudentBook**: List of students in individual classes
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -670,7 +667,8 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Double-click the jar file
+      Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 1. Saving window preferences
 
@@ -679,30 +677,61 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+### Viewing the classes
+1. Viewing the classes
+   1. Prerequisites: Nil
+  
+   1. Test case: `view` (at least one class)<br>
+      Expected: Classes are displayed in the UI, each labelled with an index number(e.g. "1:CS2103  2:CS2101")
+   1. Test case: `view` (no classes)<br>
+      Expected: Interface displays a message stating you are not managing any classes, and prompts to `create` a class
+   1. Test case: `view randominput1234567`<br>
+      Expected: Identical behaviour to `view`, Classes are displayed in the UI, each labelled with an index number(e.g. "1:CS2103  2:CS2101")
+### Selecting a class
+1. Selecting a class
+   1. Prerequisites: At least one class must have been created. You may use `view` to see all current classes (Note: It is not compulsory to use `view`, as long as you know the index, you can `select` your desired class)
+
+   1. Test case: `select 0`<br>
+      Expected: No class is selected. Error details shown in the status message.
+   1. Test case: `select 1` (At least one class exists)<br>
+      Expected: The first class by index is selected. The filepath of the class' .json file will be shown on the bottom left corner/
+   1. Test case: `select 10` (There are less than 10 classes)<br>
+      Expected: No class is selected. Error details shown in the status message.
+
+### Removing a class
+1. Removing a class
+   1. Prerequisites: At least one class must have been created. You may use `view` to see all current classes (Note: It is not compulsory to use `view`, as long as you know the index, you can `rm` your desired class)
+
+   1. Test case: `rm 0`<br>
+      Expected: No class is removed. Error details shown in the status message. The current filepath (in the bottom left corner) is not changed
+   1. Test case: `rm 1` (At least one class exists)<br>
+      Expected: The first class by index is selected. The current filepath (in the bottom left corner) will be changed to `.\No class selected!`. (Note: Even if another class is selected, when any class is deleted, the .json file will be closed and the filepath will be displayed as `.\No class selected!`.)
 
 ### Deleting a person
 
-1. Deleting a person while all persons are being shown
+1. Deleting a person while persons are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   1. Prerequisites: At least one person shown in the interface. You may `select` a class, `find` a person, `add` a person or use `list` to see all persons in a class (note: `list` is automatically called when you `select` a class, so if the selected class has at least one person in it, they will show up in the interface).
+   
 
    1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. 
 
    1. Test case: `delete 0`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+      
+   1. Test case: `delete 1` (no class selected)<br>
+      Expected: Interface prompts you to `select` a class first
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-1. _{ more test cases …​ }_
 
 ### Adding a description
 
 1. Adding a description while all persons are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Before which, you have to `view` classes and then `select` based on the index.
+   1. Prerequisites: At least one person shown in the interface. You may `select` a class, `find` a person, `add` a person or use `list` to see all persons in a class (note: `list` is automatically called when you `select` a class, so if the selected class has at least one person in it, they will show up in the interface).
 
    1. Test case: `description 1 desc/Hello`<br>
       Expected: First student/contact has a description added to them. Details of where the description has been added is shown.
@@ -711,7 +740,7 @@ testers are expected to do more *exploratory* testing.
       Expected: Error message thrown. No description is added to any contact.
 
    1. Other incorrect description commands: `description 1 Hello`, `description`, `description desc/Hello`, `description x desc/Hello` (Where x is larger than the list size)<br>
-      Expected: Similar to previous.
+      Expected: Error message thrown. No description is added to any contact.
 
    1. Adding a description works in concurrence with add/edit commands as well. As long as their prerequisites are met, and description is following a prefix `desc/`, it should work effectively.
 
@@ -719,6 +748,6 @@ testers are expected to do more *exploratory* testing.
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
+   1. A missing data file of a StudentBook may occur if user accidentally deletes the `.json` file of the class. <br>
+      A corrupted data file may occur if user accidentally edits the `.json` files manually and inputs invalid data.<br>
+      Expected: All data from that missing/corrupted file is wiped. A new `classbook.json` or new `[class].json` will be created when program runs again. 
