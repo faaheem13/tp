@@ -25,6 +25,7 @@ You can reach us at the email `E0957568@u.nus.edu`
 <img src="images/andrewong2066.png" width="200px">
 
 [[github](http://github.com/andrewong2066)]
+[[portfolio](team/andrewong2066.md)]
 
 * Role: Developer
 * Responsibilities: Testing and debugging
