@@ -264,6 +264,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL s/STUDENT_ID [desc/DESCRIPTION]`
 <p align="center">
     <img src="images/add_new_student_with_attendance.PNG" width="510" height="570">
 </p>
+
   - You may see our [attendance features](#adding-an-attendance-record-adda) below for more information.
 
 Examples:
