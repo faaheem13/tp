@@ -182,6 +182,9 @@ Removes the specified class from the ClassBook, and deletes all students in the 
 Format: `rm INDEX`
 
 * Deletes the class at the specified `INDEX`.
+
+<div style="page-break-after: always;"></div>
+
 <div class="reminder" markdown="1" style="background-color: #f7f7f7; border-left: 6px solid #5bc0de; padding: 10px; margin-bottom: 20px;">
 
 ### 💡 <span style="color: #5bc0de;">Index information</span>
@@ -206,6 +209,7 @@ Shows list of classes in result display.
   ![ViewCommand](images/ViewCommand2.png)
 * The index number shown in the displayed class list is used for [Remove](#removing-a-class-rm) and [Select](#selecting-a-class-to-view-select) (e.g. Use index 1 for CS2103)
 
+<div style="page-break-after: always;"></div>
 
 ### Selecting a class to view: `select`
 
