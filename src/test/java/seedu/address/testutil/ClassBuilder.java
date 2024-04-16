@@ -1,5 +1,8 @@
 package seedu.address.testutil;
 
+import java.io.IOException;
+
+import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.model.person.Classes;
 import seedu.address.model.person.CourseCode;
 
@@ -27,7 +30,7 @@ public class ClassBuilder {
         return this;
     }
 
-    public Classes build() {
+    public Classes build() throws DataLoadingException, IOException {
         return new Classes(cc);
     }
 }

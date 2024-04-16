@@ -3,17 +3,20 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.logic.commands.AddAttendanceRecordCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddDescriptionCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CreateClassCommand;
+import seedu.address.logic.commands.DeleteAttendanceRecordCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditAttendanceCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -21,6 +24,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RemoveClassCommand;
 import seedu.address.logic.commands.SelectClassCommand;
 import seedu.address.logic.commands.ViewClassesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -43,7 +47,8 @@ public class AddressBookParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput) throws ParseException {
+    public Command parseCommand(String userInput) throws ParseException, IOException, DataLoadingException {
+
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -98,8 +103,14 @@ public class AddressBookParser {
         case EditAttendanceCommand.COMMAND_WORD:
             return new EditAttendanceCommandParser().parse(arguments);
 
+        case DeleteAttendanceRecordCommand.COMMAND_WORD:
+            return new DeleteAttendanceRecordCommandParser().parse(arguments);
+
         case SelectClassCommand.COMMAND_WORD:
             return new SelectClassCommandParser().parse(arguments);
+
+        case RemoveClassCommand.COMMAND_WORD:
+            return new RemoveClassCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ATTENDANCE_RECORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ATTENDANCE_STATUS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MULTIPLE_STUDENTS;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
@@ -27,11 +29,22 @@ public class EditAttendanceCommandParser implements Parser<EditAttendanceCommand
     public EditAttendanceCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_ATTENDANCE_RECORD, PREFIX_ATTENDANCE_STATUS);
+                ArgumentTokenizer.tokenize(args, PREFIX_ATTENDANCE_RECORD,
+                        PREFIX_ATTENDANCE_STATUS, PREFIX_MULTIPLE_STUDENTS);
 
-        Index index;
+
+        ArrayList<Index> index = new ArrayList<>();
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            String allIndex = argMultimap.getPreamble();
+            for (String i : allIndex.split(",")) {
+
+                if (i.trim().isEmpty()) {
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            EditAttendanceCommand.MESSAGE_USAGE));
+                }
+                index.add(ParserUtil.parseIndex(i));
+
+            }
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditAttendanceCommand.MESSAGE_USAGE), pe);

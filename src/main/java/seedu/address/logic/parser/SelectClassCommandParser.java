@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.SelectClassCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -15,13 +16,14 @@ public class SelectClassCommandParser implements Parser<SelectClassCommand> {
      * and returns a FindCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public SelectClassCommand parse(String args) throws ParseException {
+    @Override
+    public SelectClassCommand parse(String userInput) throws ParseException {
         try {
-            int index = Integer.parseInt(args.trim());
+            Index index = ParserUtil.parseIndex(userInput);
             return new SelectClassCommand(index);
-        } catch (NumberFormatException e) {
+        } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    SelectClassCommand.MESSAGE_USAGE));
+                    SelectClassCommand.MESSAGE_USAGE), pe);
         }
     }
 }

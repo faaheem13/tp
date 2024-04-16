@@ -16,7 +16,7 @@ public class StudentId {
      * Format must be in: first letter is 'A' followed by 7 digits and lastly with any letter
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "A[0-9]{7}[A-Z]";
+    public static final String VALIDATION_REGEX = "A[0-9]{7}[A-Za-z]";
 
     public final String value;
 
@@ -28,8 +28,8 @@ public class StudentId {
      */
     public StudentId(String studentId) {
         requireNonNull(studentId);
-        checkArgument(isValidStudentId(studentId), MESSAGE_CONSTRAINTS);
-        value = studentId;
+        checkArgument(isValidStudentId(studentId.toUpperCase()), MESSAGE_CONSTRAINTS);
+        value = studentId.toUpperCase();
     }
 
     /**

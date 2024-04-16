@@ -64,7 +64,9 @@ public class Person {
         return Collections.unmodifiableSet(attendances);
     }
 
-    public Description getDescription() { return description; }
+    public Description getDescription() {
+        return description;
+    }
     /**
      * Returns true if both persons have the same studentID.
      * This defines a weaker notion of equality between two persons.
@@ -75,7 +77,9 @@ public class Person {
         }
 
         return otherPerson != null
-                && otherPerson.getStudentId().equals(getStudentId());
+                && otherPerson.getStudentId().equals(getStudentId())
+                || otherPerson.getEmail().equals(getEmail())
+                || otherPerson.getPhone().equals(getPhone());
     }
 
     /**

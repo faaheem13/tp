@@ -3,6 +3,10 @@ package seedu.address.model.tag;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import seedu.address.model.person.AttendanceStatus;
 
 /**
@@ -11,9 +15,12 @@ import seedu.address.model.person.AttendanceStatus;
  */
 public class Attendance {
 
-    public static final String MESSAGE_CONSTRAINTS = "Attendance date should be in dd-MM-yyyy";
-    public static final String VALIDATION_REGEX = "(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[1,2])-(19|20)\\d{2}";
+    public static final String MESSAGE_CONSTRAINTS = "A valid attendance date should be in dd-MM-yyyy";
 
+    public static final String MESSAGE_CONSTRAINTS_STATUS = "Status must be from 0 to 2 where 0 means 'Absent'"
+            + ", 1 means 'Present' and 2 means 'Absent with valid reason'";
+
+    public static final String VALIDATION_REGEX_DATE = "\\d{2}-\\d{2}-\\d{4}";
     public static final String VALIDATION_REGEX_STATUS = "[012]";
 
 
@@ -34,7 +41,23 @@ public class Attendance {
      * Returns true if a given string is a valid tag name.
      */
     public static boolean isValidDate(String test) {
-        return test.matches(VALIDATION_REGEX);
+        if (test.trim().equals("")) {
+            return false;
+        }
+
+        if (!test.matches(VALIDATION_REGEX_DATE)) {
+            return false;
+        }
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        dateFormat.setLenient(false);
+        try {
+            Date date = dateFormat.parse(test);
+        } catch (ParseException e) {
+            return false;
+        }
+
+        return true;
     }
 
     public static boolean isValidStatus(String test) {

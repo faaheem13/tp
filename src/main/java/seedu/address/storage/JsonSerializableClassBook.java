@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ClassBook;
 import seedu.address.model.ReadOnlyClassBook;
@@ -29,7 +31,7 @@ class JsonSerializableClassBook {
         classes.addAll(source.getClassList().stream().map(JsonAdaptedClass::new).collect(Collectors.toList()));
     }
 
-    public ClassBook toModelType() throws IllegalValueException {
+    public ClassBook toModelType() throws IllegalValueException, IOException, DataLoadingException {
         ClassBook classBook = new ClassBook();
         for (JsonAdaptedClass jsonAdaptedClass : classes) {
             Classes classes = jsonAdaptedClass.toModelType();

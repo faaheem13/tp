@@ -1,7 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -40,8 +44,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_STUDENTID + "STUDENTID] "
-            + "[" + PREFIX_ATTENDANCE_RECORD + "Attendance]"
-            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION]...\n "
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION]\n "
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
@@ -50,6 +53,12 @@ public class EditCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
+    public static final String MESSAGE_DUPLICATE_EMAIL = "This email already exits in the address book.";
+
+    public static final String MESSAGE_DUPLICATE_STUDENT_ID = "This student id already exists in the address book.";
+
+    public static final String MESSAGE_DUPLICATE_PHONE = "This phone already exists in the address book.";
+    public static final String MESSAGE_FAILURE = "Select a class before editing a student!";
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
 
@@ -68,10 +77,26 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (model.getSelectedClassName() == "No class selected!") {
+            return new CommandResult(MESSAGE_FAILURE);
+        }
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        for (Person i : lastShownList) {
+            if (i.getStudentId().equals(editPersonDescriptor.studentId)) {
+                throw new CommandException(MESSAGE_DUPLICATE_STUDENT_ID);
+            }
+            if (i.getEmail().equals(editPersonDescriptor.email)) {
+                throw new CommandException(MESSAGE_DUPLICATE_EMAIL);
+            }
+
+            if (i.getPhone().equals(editPersonDescriptor.phone)) {
+                throw new CommandException(MESSAGE_DUPLICATE_PHONE);
+            }
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
@@ -98,10 +123,15 @@ public class EditCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         StudentId updatedStudentId = editPersonDescriptor.getStudentId().orElse(personToEdit.getStudentId());
         Set<Attendance> updatedAttendances = editPersonDescriptor.getTags().orElse(personToEdit.getAttendances());
-        Description updatedDescription = editPersonDescriptor.getDescription().orElse(personToEdit.getDescription());
+        Description updatedDescription;
+        if (editPersonDescriptor.getDescription().get().value.equals("")) {
+            updatedDescription = personToEdit.getDescription();
+        } else {
+            updatedDescription = editPersonDescriptor.getDescription().get();
+        }
 
-
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedStudentId, updatedAttendances, updatedDescription);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedStudentId, updatedAttendances,
+                updatedDescription);
     }
 
     @Override
@@ -152,13 +182,14 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setStudentId(toCopy.studentId);
             setAttendances(toCopy.attendances);
+            setDescription(toCopy.description);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, studentId, attendances);
+            return CollectionUtil.isAnyNonNull(name, phone, email, studentId, attendances, description);
         }
 
         public void setName(Name name) {
@@ -234,7 +265,8 @@ public class EditCommand extends Command {
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(studentId, otherEditPersonDescriptor.studentId)
-                    && Objects.equals(attendances, otherEditPersonDescriptor.attendances);
+                    && Objects.equals(attendances, otherEditPersonDescriptor.attendances)
+                    && Objects.equals(description, otherEditPersonDescriptor.description);
         }
 
         @Override

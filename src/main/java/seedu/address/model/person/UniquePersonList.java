@@ -49,6 +49,26 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
+     * Adds a person to the list in alphabetical order.
+     * The person must not already exist in the list.
+     */
+    public void addAlphabetically(Person toAdd) {
+        requireNonNull(toAdd);
+        if (contains(toAdd)) {
+            throw new DuplicatePersonException();
+        }
+        ObservableList<Person> tempList = FXCollections.observableArrayList(internalList);
+        tempList.add(toAdd);
+
+        // Sort the temporary list alphabetically
+        tempList.sort((person1, person2) -> person1.getName().compareToIgnoreCase(person2.getName()));
+
+        internalList.clear();
+        internalList.addAll(tempList);
+    }
+
+
+    /**
      * Replaces the person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the list.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.

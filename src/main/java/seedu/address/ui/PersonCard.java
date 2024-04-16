@@ -3,6 +3,7 @@ package seedu.address.ui;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
+import java.util.Set;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -21,6 +22,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Attendance;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -57,6 +59,8 @@ public class PersonCard extends UiPart<Region> {
     private FlowPane attendance;
     @FXML
     private Label description;
+    @FXML
+    private Label attendancePercentage;
 
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
@@ -96,7 +100,23 @@ public class PersonCard extends UiPart<Region> {
                     // Add the container to the attendance FlowPane
                     this.attendance.getChildren().add(container);
                 });
-      description.setText(person.getDescription().value);
+        Set<Attendance> attendances = person.getAttendances();
+        if (attendances.size() == 0) {
+            attendancePercentage.setVisible(false);
+            attendancePercentage.setManaged(false);
+        } else {
+            attendancePercentage.setVisible(true);
+            attendancePercentage.setManaged(true);
+            int presentAndValid = 0;
+            for (Attendance a : attendances) {
+                if (a.attendanceName.getStatus().equals("1") || a.attendanceName.getStatus().equals("2")) {
+                    presentAndValid++;
+                }
+            }
+            attendancePercentage.setText(String.format("Attendance Percentage: %.2f%%", (
+                    presentAndValid * 100.0) / attendances.size()));
+        }
+        description.setText(person.getDescription().value);
     }
 
     /**

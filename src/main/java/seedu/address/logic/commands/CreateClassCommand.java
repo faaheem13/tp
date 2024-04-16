@@ -9,7 +9,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Classes;
 
-
 /**
  * Creates a class to the classbook.
  */
@@ -23,6 +22,8 @@ public class CreateClassCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New class added: %1$s";
     public static final String MESSAGE_DUPLICATE_CLASS = "This class already exists";
+
+    public static final String MESSAGE_SUCCESS2 = "You are managing your new class: %1$s";
 
     private final Classes toCreate;
 
@@ -43,7 +44,11 @@ public class CreateClassCommand extends Command {
         }
 
         model.createClass(toCreate);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.classFormat(toCreate)));
+
+        return new CommandResult((String.format(MESSAGE_SUCCESS, Messages.classFormat(toCreate)) + "\n"
+                    + String.format(MESSAGE_SUCCESS2, Messages.classFormat(toCreate))
+                )
+        );
     }
 
     @Override

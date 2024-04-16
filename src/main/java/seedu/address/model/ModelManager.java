@@ -5,6 +5,9 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -15,29 +18,24 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.model.person.Classes;
-import seedu.address.model.person.CourseCode;
 import seedu.address.model.person.Person;
 import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.StorageManager;
-import seedu.address.ui.UIUpdateListener;
-import java.util.ArrayList;
-import java.util.List;
+import seedu.address.ui.UiUpdateListener;
+
 /**
  * Represents the in-memory model of the address book data.
  */
 public class ModelManager implements Model {
-    private final List<UIUpdateListener> uiUpdateListeners;
-    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    // private final AddressBook addressBook;
+    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private final List<UiUpdateListener> uiUpdateListeners;
     private final ClassBook classBook;
     private final UserPrefs userPrefs;
     private FilteredList<Person> filteredPersons;
     private final FilteredList<Classes> filteredClasses;
     private Classes selectedClass;
     private AddressBook selectedClassAddressBook;
-    private JsonAddressBookStorage Storage;
-
+    private JsonAddressBookStorage storage;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -148,6 +146,30 @@ public class ModelManager implements Model {
     @Override
     public void deletePerson(Person target) {
         selectedClassAddressBook.removePerson(target);
+
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        // Update the storage with the edited AddressBook
+        try {
+            storage.saveAddressBook(selectedClassAddressBook, selectedClass.getFilePath());
+        } catch (IOException e) {
+            logger.warning("Error saving the address book after deleting person: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Clears all data from the currently selected class address book.
+     * This operation effectively resets the data to an empty address book.
+     * After clearing the data, the empty address book is saved to the storage
+     * at the file path associated with the selected class.
+     */
+    public void clear() {
+        selectedClassAddressBook.resetData(new AddressBook());
+        try {
+            storage.saveAddressBook(selectedClassAddressBook, selectedClass.getFilePath());
+        } catch (IOException e) {
+            logger.warning("Error saving the address book after deleting person: " + e.getMessage());
+        }
     }
 
     @Override
@@ -156,29 +178,29 @@ public class ModelManager implements Model {
         selectedClassAddressBook.addPerson(person);
         filteredPersons = new FilteredList<>(this.selectedClassAddressBook.getPersonList());
         try {
-            this.Storage.saveAddressBook(selectedClassAddressBook, selectedClass.getFilePath());
-        } catch(IOException e){};
+            this.storage.saveAddressBook(selectedClassAddressBook, selectedClass.getFilePath());
+        } catch (IOException e) {
+            logger.warning("Error adding person to the selected class address book: " + e.getMessage());
+        }
 
         Predicate<Person> predicate = updatedPerson -> selectedClassAddressBook.getPersonList().contains(updatedPerson);
         updateFilteredPersonList(predicate);
     }
 
-    public void addPerson(Person person, CourseCode courseCode) {
-        Classes classes = new Classes(courseCode);
-        if (classBook.hasClass(classes)) {
-            classes.getAddressBook().addPerson(person);
-        }
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
     @Override
     public void createClass(Classes classes) {
         classBook.createClass(classes);
+        selectClass(classes);
     }
 
     @Override
     public void removeClass(Classes classes) {
+        hideStudentsUi();
         classBook.removeClass(classes);
+        userPrefs.setAddressBookFilePath(Paths.get("No class selected!"));
+        this.selectedClass = null;
+        this.selectedClassAddressBook = new AddressBook();
+        notifyUiUpdateListeners();
     }
 
     @Override
@@ -190,7 +212,7 @@ public class ModelManager implements Model {
 
         // Update the storage with the edited AddressBook
         try {
-            Storage.saveAddressBook(selectedClassAddressBook, selectedClass.getFilePath());
+            storage.saveAddressBook(selectedClassAddressBook, selectedClass.getFilePath());
         } catch (IOException e) {
             logger.warning("Error saving the address book after editing person: " + e.getMessage());
             // Consider what action to take if saving fails
@@ -203,6 +225,7 @@ public class ModelManager implements Model {
         try {
             return this.selectedClass.getCourseCode().toString();
         } catch (NullPointerException e) {
+            logger.warning("No class currently selected!");
             return "No class selected!";
         }
     }
@@ -226,6 +249,7 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+        notifyUiUpdateListeners();
     }
 
     @Override
@@ -263,12 +287,11 @@ public class ModelManager implements Model {
         requireNonNull(classes);
 
         selectedClass = classes;
-        // selectedClassAddressBook = selectedClass.getAddressBook();
-        this.Storage = new JsonAddressBookStorage(selectedClass.getFilePath());
+        this.storage = new JsonAddressBookStorage(selectedClass.getFilePath());
         userPrefs.setAddressBookFilePath(selectedClass.getFilePath());
 
         try {
-            Optional<ReadOnlyAddressBook> optionalAddressBook = Storage.readAddressBook();
+            Optional<ReadOnlyAddressBook> optionalAddressBook = storage.readAddressBook();
 
             if (optionalAddressBook.isPresent()) {
                 selectedClassAddressBook = new AddressBook(optionalAddressBook.get());
@@ -283,28 +306,26 @@ public class ModelManager implements Model {
         }
 
         filteredPersons = new FilteredList<>(this.selectedClassAddressBook.getPersonList());
-
-        // Predicate<Person> predicate = person -> selectedClassAddressBook.getPersonList().contains(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        for (UIUpdateListener listener : uiUpdateListeners) {
-            listener.updateUiOnClassSelected(classes);;
-        }
-        notifyUIUpdateListenersOnClassSelected(classes);
+        notifyUiUpdateListeners();
     }
 
-
-
-    public void addUIUpdateListener(UIUpdateListener listener) {
+    //=============================== Observer functions =============================================================
+    public void addUiUpdateListener(UiUpdateListener listener) {
         uiUpdateListeners.add(listener);
     }
 
-    public void removeUIUpdateListener(UIUpdateListener listener) {
-        uiUpdateListeners.remove(listener);
-    }
-    private void notifyUIUpdateListenersOnClassSelected(Classes selectedClass) {
-        for (UIUpdateListener listener : uiUpdateListeners) {
-            listener.updateUiOnClassSelected(selectedClass);
+    private void notifyUiUpdateListeners() {
+        for (UiUpdateListener listener : uiUpdateListeners) {
+            listener.updateUi();
         }
     }
 
+
+    /**
+     * Hides all currently viewed students.
+     */
+    public void hideStudentsUi() {
+        updateFilteredPersonList(updatedPerson -> false);
+    }
 }

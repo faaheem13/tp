@@ -14,7 +14,12 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Description;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.StudentId;
 import seedu.address.model.tag.Attendance;
 
 /**
@@ -22,17 +27,18 @@ import seedu.address.model.tag.Attendance;
  */
 public class AddAttendanceRecordCommand extends Command {
 
-    public static final String COMMAND_WORD = "attendance";
+    public static final String COMMAND_WORD = "adda";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add attendance record. "
             + "Parameters: "
             + PREFIX_ATTENDANCE_RECORD + "DATE\n"
-            + "Example: " + COMMAND_WORD + " ar/ 19-03-2024";
+            + "Example: " + COMMAND_WORD + " ar/19-03-2024";
 
 
     public static final String MESSAGE_NOT_IMPLEMENTED_YET = "attendance command not implemented yet";
     public static final String MESSAGE_SUCCESS = "New attendance added for: %1$s";
     public static final String MESSAGE_ARGUMENTS = "Date: %1$s";
+    public static final String MESSAGE_FAILURE = "Create/Select a class before adding a new attendance record";
     private Attendance date;
 
     /**
@@ -45,8 +51,12 @@ public class AddAttendanceRecordCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-
         requireNonNull(model);
+        if (model.getSelectedClassName() == "No class selected!") {
+            return new CommandResult(MESSAGE_FAILURE);
+        }
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
         List<Person> lastShownList = model.getFilteredPersonList();
         if (lastShownList.size() == 0) {
             throw new CommandException(Messages.MESSAGE_NO_PERSON_IN_THE_CLASS);
@@ -71,7 +81,7 @@ public class AddAttendanceRecordCommand extends Command {
             }
             set.add(this.date);
             editPersonDescriptor.setAttendances(set);
-
+            editPersonDescriptor.setDescription(lastShownList.get(i).getDescription());
             Person personToEdit = lastShownList.get(index.getZeroBased());
             Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
@@ -87,6 +97,12 @@ public class AddAttendanceRecordCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, date));
     }
 
+    /**
+     * Provided an updated person.
+     * @param personToEdit the person that needed to be updated.
+     * @param editPersonDescriptor the information to be updated.
+     * @return an updated person.
+     */
     private static Person createEditedPerson(Person personToEdit,
                                              EditCommand.EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
@@ -98,7 +114,9 @@ public class AddAttendanceRecordCommand extends Command {
         Set<Attendance> updatedAttendances = editPersonDescriptor.getTags().orElse(personToEdit.getAttendances());
         Description updatedDescription = editPersonDescriptor.getDescription().orElse(personToEdit.getDescription());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedStudentId, updatedAttendances, updatedDescription);
+
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedStudentId, updatedAttendances,
+                updatedDescription);
     }
 
     @Override

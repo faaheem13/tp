@@ -31,11 +31,6 @@ public interface ClassBookStorage {
      */
     Optional<ReadOnlyClassBook> readClassBook(Path filePath) throws DataLoadingException;
 
-    void createJsonFileForEachCC(Optional<JsonSerializableClassBook> classBook) throws IOException,
-            IllegalValueException;
-
-    void createJsonFileForEachCC(JsonSerializableClassBook classBook) throws IOException,
-            IllegalValueException;
     /**
      * Saves the given {@link ReadOnlyClassBook} to the storage.
      * @param classBook cannot be null.

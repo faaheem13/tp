@@ -64,4 +64,20 @@ public class Name {
         return fullName.hashCode();
     }
 
+    /**
+     * Compares this name with the specified name for order, ignoring case considerations.
+     *
+     * @param otherName The name to be compared.
+     * @return A negative integer, zero, or a positive integer as this name is less than,
+     *         equal to, or greater than the specified name, ignoring case considerations.
+     */
+    public int compareToIgnoreCase(Name otherName) {
+        // Null check for safety
+        if (otherName == null) {
+            throw new NullPointerException("Name to compare cannot be null");
+        }
+        // Compare ignoring case
+        return this.fullName.compareToIgnoreCase(otherName.fullName);
+    }
+
 }

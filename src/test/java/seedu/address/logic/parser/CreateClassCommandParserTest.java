@@ -8,8 +8,11 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_CC_DESC;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
+import java.io.IOException;
+
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.logic.commands.CreateClassCommand;
 import seedu.address.model.person.Classes;
 import seedu.address.model.person.CourseCode;
@@ -20,7 +23,7 @@ public class CreateClassCommandParserTest {
     private CreateClassCommandParser parser = new CreateClassCommandParser();
 
     @Test
-    public void parse_allFieldsPresent_success() {
+    public void parse_allFieldsPresent_success() throws DataLoadingException, IOException {
         Classes expectedClass = new ClassBuilder().withCC(VALID_CC).build();
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_CC_DESC, new CreateClassCommand(expectedClass));
     }

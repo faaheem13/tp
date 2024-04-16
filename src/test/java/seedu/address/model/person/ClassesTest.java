@@ -6,8 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalPersons.TYPICAL_CLASS_1;
 import static seedu.address.testutil.TypicalPersons.TYPICAL_CLASS_2;
 
+import java.io.IOException;
+
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.testutil.ClassBuilder;
 
 public class ClassesTest {
@@ -20,7 +23,7 @@ public class ClassesTest {
     }
 
     @Test
-    public void equals() {
+    public void equals() throws DataLoadingException, IOException {
         Classes copy = new ClassBuilder(TYPICAL_CLASS_1).build();
         assertTrue(TYPICAL_CLASS_1.equals(copy));
 

@@ -1,12 +1,7 @@
 package seedu.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ClassBook;
 import seedu.address.model.Model;
@@ -35,15 +30,14 @@ class EditAttendanceCommandTest {
         updatedAttendance = new Attendance(new AttendanceStatus("02-05-2024", "0"));
         descriptor = new EditAttendanceCommand.EditPersonDescriptor();
         descriptor.setAttendances(updatedAttendance);
-        editAttendanceCommand = new EditAttendanceCommand(Index.fromZeroBased(0), descriptor);
+        //        editAttendanceCommand = new EditAttendanceCommand(Index.fromZeroBased(0), descriptor);
     }
 
-//    @Test
-//    public void execute_validIndexAndAttendance_success() throws CommandException {
-//        CommandResult commandResult = editAttendanceCommand.execute(model);
-//        assertEquals(String.format(EditAttendanceCommand.MESSAGE_EDIT_PERSON_SUCCESS, personToEdit),
-//                commandResult.getFeedbackToUser());
-//        // Further assertions can be made here to ensure that the attendance record was edited correctly
-//    }
-
+    //    @Test
+    //    public void execute_validIndexAndAttendance_success() throws CommandException {
+    //        CommandResult commandResult = editAttendanceCommand.execute(model);
+    //        assertEquals(String.format(EditAttendanceCommand.MESSAGE_EDIT_PERSON_SUCCESS, personToEdit),
+    //                commandResult.getFeedbackToUser());
+    //        // Further assertions can be made here to ensure that the attendance record was edited correctly
+    //    }
 }

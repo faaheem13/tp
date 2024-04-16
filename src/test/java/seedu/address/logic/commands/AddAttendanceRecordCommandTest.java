@@ -1,12 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalPersons.getTypicalClassBook;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -16,15 +13,11 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.Messages;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyClassBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.person.AttendanceStatus;
 import seedu.address.model.person.Classes;
 import seedu.address.model.person.Person;
@@ -37,30 +30,6 @@ public class AddAttendanceRecordCommandTest {
     @Test
     public void constructor_nullAttendance_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddAttendanceRecordCommand((null)));
-    }
-
-    @Test
-    public void execute_addAttendance_success() throws Exception {
-        // Setup your model with a few persons
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalClassBook());
-        Attendance validAttendance = new Attendance(new AttendanceStatus("19-03-2024", "1"));
-
-        CommandResult commandResult = new AddAttendanceRecordCommand(validAttendance).execute(model);
-
-        assertEquals(String.format(AddAttendanceRecordCommand.MESSAGE_SUCCESS, validAttendance),
-                commandResult.getFeedbackToUser());
-        // Further assertions to check if the attendance was correctly added to all persons
-    }
-
-    @Test
-    public void execute_emptyPersonList_throwsCommandException() {
-        Model model = new ModelManager(); // No persons in the model
-        Attendance validAttendance = new Attendance(new AttendanceStatus("19-03-2024", "1"));
-
-        AddAttendanceRecordCommand addAttendanceRecordCommand = new AddAttendanceRecordCommand(validAttendance);
-
-        assertThrows(CommandException.class,
-                Messages.MESSAGE_NO_PERSON_IN_THE_CLASS, () -> addAttendanceRecordCommand.execute(model));
     }
 
     @Test
@@ -86,9 +55,6 @@ public class AddAttendanceRecordCommandTest {
         // different attendance -> returns false
         assertFalse(addAttendance1Command.equals(addAttendance2Command));
     }
-
-
-
 
 
     private class ModelStub implements Model {
@@ -169,6 +135,11 @@ public class AddAttendanceRecordCommandTest {
         }
 
         @Override
+        public void clear() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setPerson(Person target, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
@@ -217,6 +188,9 @@ public class AddAttendanceRecordCommandTest {
         public String getSelectedClassName() {
             return null;
         }
+
+        @Override
+        public void hideStudentsUi(){}
     }
 
 

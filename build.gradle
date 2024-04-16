@@ -6,6 +6,14 @@ plugins {
     id 'jacoco'
 }
 
+run {
+    enableAssertions = true
+}
+test {
+    jvmArgs '-ea' // Enable assertions for test execution
+}
+
+
 mainClassName = 'seedu.address.Main'
 
 sourceCompatibility = JavaVersion.VERSION_11
@@ -69,7 +77,8 @@ dependencies {
 }
 
 shadowJar {
-    archiveFileName = 'addressbook.jar'
+    archiveFileName = 'MustVas.jar'
 }
 
 defaultTasks 'clean', 'test'
+

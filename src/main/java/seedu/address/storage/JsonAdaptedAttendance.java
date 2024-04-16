@@ -52,7 +52,7 @@ class JsonAdaptedAttendance {
             throw new IllegalValueException(Attendance.MESSAGE_CONSTRAINTS);
         }
         if (!Attendance.isValidStatus(status)) {
-            throw new IllegalValueException(Attendance.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Attendance.MESSAGE_CONSTRAINTS_STATUS);
         }
         return new Attendance(new AttendanceStatus(attendanceDate, status));
     }

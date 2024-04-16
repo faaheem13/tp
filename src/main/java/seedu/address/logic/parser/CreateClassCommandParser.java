@@ -3,8 +3,10 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASS;
 
+import java.io.IOException;
 import java.util.stream.Stream;
 
+import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.logic.commands.CreateClassCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Classes;
@@ -15,7 +17,8 @@ import seedu.address.model.person.Classes;
 public class CreateClassCommandParser implements Parser<CreateClassCommand> {
 
     @Override
-    public CreateClassCommand parse(String userInput) throws ParseException {
+    public CreateClassCommand parse(String userInput) throws ParseException, IOException, DataLoadingException {
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(userInput, PREFIX_CLASS);
 

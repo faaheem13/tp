@@ -76,4 +76,8 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         FileUtil.createIfMissing(filePath);
         JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
     }
+
+    public void removeAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+
+    }
 }

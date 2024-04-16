@@ -55,7 +55,7 @@ public class CourseCode {
         }
 
         CourseCode otherCourseCode = (CourseCode) other;
-        return courseCode.equals(otherCourseCode.courseCode);
+        return courseCode.toLowerCase().equals(otherCourseCode.courseCode.toLowerCase());
     }
 
     @Override

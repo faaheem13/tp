@@ -3,11 +3,14 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.File;
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.person.exceptions.CourseCodeNotFoundException;
+import seedu.address.model.person.exceptions.DuplicateClassException;
 
 /**
  * A list of classes that enforces uniqueness between its elements and does not allow nulls.
@@ -42,9 +45,9 @@ public class UniqueClassList implements Iterable<Classes> {
      */
     public void add(Classes toAdd) {
         requireNonNull(toAdd);
-        //      if (contains(toAdd)) {
-        //      throw new DuplicateClassException()
-        //      }
+        if (contains(toAdd)) {
+            throw new DuplicateClassException();
+        }
         internalList.add(toAdd);
     }
 
@@ -58,12 +61,12 @@ public class UniqueClassList implements Iterable<Classes> {
         requireAllNonNull(target, editedClass);
 
         int index = internalList.indexOf(target);
-        //      if (index == -1) {
-        //      throw new CcNotFoundException()
-        //      }
-        //      if (!target.isSamePerson(editedClass) && contains(editedClass) {
-        //      throw new DuplicateClassException();
-        //      }
+        if (index == -1) {
+            throw new CourseCodeNotFoundException();
+        }
+        if (!target.isSameClass(editedClass) && contains(editedClass)) {
+            throw new DuplicateClassException();
+        }
 
         internalList.set(index, editedClass);
     }
@@ -75,9 +78,9 @@ public class UniqueClassList implements Iterable<Classes> {
 
     public void setClasses(List<Classes> classes) {
         requireAllNonNull(classes);
-        //      if (!classesAreUnique(classes)) {
-        //      throw new DuplicateClassException();
-        //      }
+        if (!classesAreUnique(classes)) {
+            throw new DuplicateClassException();
+        }
 
         internalList.setAll(classes);
     }
@@ -87,7 +90,11 @@ public class UniqueClassList implements Iterable<Classes> {
      */
     public void remove(Classes toRemove) {
         requireNonNull(toRemove);
-        internalList.remove(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new CourseCodeNotFoundException();
+        }
+        File f = new File(toRemove.getFilePath().toUri());
+        f.delete();
     }
 
     /**

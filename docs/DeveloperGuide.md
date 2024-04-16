@@ -4,7 +4,7 @@
   pageNav: 3
 ---
 
-# AB-3 Developer Guide
+# MustVas Developer Guide
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -13,7 +13,7 @@
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+MustVas was adapted from [AB-3](https://se-education.org/addressbook-level3/DeveloperGuide.html).
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -107,12 +107,15 @@ How the `Logic` component works:
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
+1. For commands that have no arguments, instead of creates a parser that matches the command (e.g., `ListCommandParser`), the `Command` object(e.g. ListCommand) is simply returned by the `AddressBookParser` .
+
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
 <puml src="diagrams/ParserClasses.puml" width="600"/>
 
 How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
+
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
@@ -122,8 +125,10 @@ How the parsing works:
 
 
 The `Model` component,
-
-* stores the studentId book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
+ 
+* stores the ClassBook data i.e., all `Classes` objects. (Each `Classes` object has its own AddressBook).
+* stores the currently selected `Classes` instance, and its corresponding `AddressBook`.
+* stores all `Person` objects in the `AddressBook` of the  currently selected `Classes` instance (which are contained in a `UniquePersonList` object).
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
@@ -144,8 +149,8 @@ The `Model` component,
 <puml src="diagrams/StorageClassDiagram.puml" width="550" />
 
 The `Storage` component,
-* can save both studentId book data and user preference data in JSON format, and read them back into corresponding objects.
-* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* can save addressBook data, classBook data, and user preference data in JSON format, and read them back into corresponding objects.
+* inherits from `ClassBookStorage`, `AddressBookStorage` and `UserPrefStorage`, which means it can be treated one of the above. (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 ### Common classes
@@ -158,102 +163,107 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### \[Proposed\] Undo/redo feature
+### Create Class feature 
 
-#### Proposed Implementation
+The `create` command is used to create a class. Below is the sequence diagram when the `create` command is used.
 
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+<puml src="diagrams/CreateClassSequenceDiagram.puml" />
 
-* `VersionedAddressBook#commit()` — Saves the current studentId book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous studentId book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone studentId book state from its history.
+The below activity diagram illustrates the process of creating a new class.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+<puml src="diagrams/CheckDuplicationForCreateClassCommand.puml" />
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+### Select Class feature
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial studentId book state, and the `currentStatePointer` pointing to that single studentId book state.
+The `select` command is used to select a class. Below is the sequence diagram when the `select` command is used.
 
-<puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
+<puml src="diagrams/SelectClassCommandSequenceDiagram.puml" />
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the studentId book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the studentId book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted studentId book state.
+The below activity diagram illustrates the process of selecting a class.
 
-<puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
+<puml src="diagrams/CheckIfClassExistsForSelectClassCommand.puml" />
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified studentId book state to be saved into the `addressBookStateList`.
+### Add feature
+The `add` command is used to add a new student. Below is the sequence diagram when the `add` command is used.
 
-<puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
+<puml src="diagrams/AddCommandSequenceDiagram.puml" />
 
-<box type="info" seamless>
+The below activity diagram illustrates the process of adding a new student.
 
-**Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the studentId book state will not be saved into the `addressBookStateList`.
+<puml src="diagrams/CheckDuplicationForAddCommand.puml" />
 
-</box>
+### Edit feature
+The `edit` command is used to edit a student's information (name, phone, email, student id, description). Below is the sequence diagram when the `edit` command is used.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous studentId book state, and restores the studentId book to that state.
+<puml src="diagrams/EditCommandSequenceDiagram.puml" />
 
-<puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
+The below activity diagram illustrates the process of editing a student.
+
+<puml src="diagrams/CheckIfStudentExistsForEditCommand.puml" />
+
+### Add attendance record feature 
+
+The `adda` command is used to add an attendance record to all students. Below is the sequence when the `adda` command is used.
+
+<puml src="diagrams/AddAttendanceRecordSequenceDiagram.puml" />
+
+The below activity diagram illustrates the process of adding a new attendance record.
+
+<puml src="diagrams/CheckDuplicationForAddAttendanceCommand.puml" />
+
+### Edit attendance record feature
+
+The `edita` command is used to edit an attendance record of some students. Below is the sequence when the `edita` command is used.
+
+<puml src="diagrams/EditAttendanceCommandSequenceDiagram.puml" />
+
+The below activity diagram illustrates the process of editing an attendance records for the selected students.
+
+<puml src="diagrams/CheckIfDateExistsForEditAttendanceRecordCommand.puml" />
+
+### Delete attendance record feature 
+
+The `dela` command is used to delete an attendance record of all students. Below is the sequence when the `dela` command is used.
+
+<puml src="diagrams/DeleteAttendanceRecordSequenceDiagram.puml" />
+
+The below activity diagram illustrates the process of deleting an attendance record.
+
+<puml src="diagrams/CheckIfDateExistsForDeleteAttendanceRecordCommand.puml" />
 
 
-<box type="info" seamless>
+# Implementation of Classes feature
+The Classes feature is built using the basic structure of `AddressBook`. `Classes` represents a tutorial class.
+### 1. Basic structure
+A `ClassBook` instance holds all current `Classes` instances. This is stored in the data folder as `classbook.json`
+file. <br />
+Each `Classes` instance contains an instance of `Addressbook`, which holds a list of `Person` instances
+representing the students in the Class. Each `Classes` instance stored in data as `[className].json` where
+className is the name of the `Classes` instance e.g. `CS2103.json`
 
-**Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
+### 2. Changes to Storage
+Problem 1:
+The original structure of AB3 only allows for a single file path for storage, which was set to `addressbook.json`
+by default. This was a big problem, as our intended implementation of the Classes feature necessitated
+multiple .json files to make sharing data between tutors easier. <br />
 
-</box>
+Solution 1 v1.0:
+Rather than use the filepath specified in the `preferences.json`, `ModelManager` was changed to use
+its own instance of `Storage`, to call the `saveAddressBook` with `selectedClass.getFilePath()`
+as the second parameter. This works, but SLAP is not ideal with the current implementation.
 
-The following sequence diagram shows how an undo operation goes through the `Logic` component:
+### 3. Changes to UI
+Problem 1:
+Since the original AB3 had only one command (find) that required the UI to be updated, the UI was implemented to update
+based on the contents of the `filteredPersonsList`. This was inadequate for our classes feature, which
+requires the UI's `PersonListPanel` to be updated upon selecting a different class.
 
-<puml src="diagrams/UndoSequenceDiagram-Logic.puml" alt="UndoSequenceDiagram-Logic" />
+Solution 1:
+A list of `UiUpdateListener` - `List<UiUpdateListener> uiUpdateListeners` is created in ModelManager by calling
+`modelManager.addUiUpdateListener(uiManager);` in MainApp. The listeners monitors for calls to the `select` command,
+and call `mainWindow.fillInnerParts()` to update the UI PersonListPanel.
 
-<box type="info" seamless>
 
-**Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</box>
-
-Similarly, how an undo operation goes through the `Model` component is shown below:
-
-<puml src="diagrams/UndoSequenceDiagram-Model.puml" alt="UndoSequenceDiagram-Model" />
-
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the studentId book to that state.
-
-<box type="info" seamless>
-
-**Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest studentId book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</box>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the studentId book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-<puml src="diagrams/UndoRedoState4.puml" alt="UndoRedoState4" />
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all studentId book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-<puml src="diagrams/UndoRedoState5.puml" alt="UndoRedoState5" />
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<puml src="diagrams/CommitActivityDiagram.puml" width="250" />
-
-#### Design considerations:
-
-**Aspect: How undo & redo executes:**
-
-* **Alternative 1 (current choice):** Saves the entire studentId book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -274,105 +284,289 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* NUS CS2103T Tutors who has to keep track of students' profile and progress during class
-* has a need to manage a significant number of contact
-* manages student's profile such as attendance, grade, etc
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* NUS Teaching Assistants (TAs) who has to keep track of students' profile and attendance record during class.
+* Has a need to manage a significant number of contacts, including potentially different classes.
+* Manages student's profile such as contact information, attendance, etc.
+* Prefer desktop apps over other types.
+* Able to type fast.
+* Prefers typing to mouse interactions.
+* Is reasonably comfortable using Command Line Interface (CLI) applications.
 
-**Value proposition**: Makes tutors life easier by increasing convenience of checking progress and compacting all the relevant information for easy access (GitHub PR reviews, Canvas quiz results, iP progress tracker, etc.)
+**Value proposition**: Makes tutors life easier by increasing convenience of checking progress and compacting all the relevant information for easy access (Student contact information, attendance records, summary of attendance statuses, etc.)
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
-|----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user who enters the program for the first time | select the class that I want | view all the students in that selected class |
-| `* * *`  | new user| create new class | separate students into their respective classes |
-| `* * *`  | user| delete class | remove classes that is not needed anymore |
-| `* * *`  | user | add a new student to my class | keep track of my students' profiles |
-| `* * *`  | user | remove a student from the class | keep an updated record of students in the class |
-| `* *`    | user | write descriptions for each student | take note of certain students based on the description |
-| `* * *`  | user | create an attendance sheet for my students | record a student's attendance |
-| `* *`    | user | edit the attendance sheet of students | conveniently make changes to attendance when necessary |
-| `* * *`  | user | record attendance status for my students (PRESENT, ABSENT, VALID REASON) | acknowledge their attendance |
-| `* * *`  | user | delete an attendance sheet | remove any unnecessary attendance sheet |
-| `*`      | organised user | browse my contacts in the default alphabetical setting | easily scroll to find a particular contact |
-| `* *`    | forgetful user | schedule reminders for important events or follow-ups associated with a specific contact | don't miss important dates or tasks |
+| Priority | As a …​                                     | I want to …​                                        | So that I can…​                                                         |
+|----------|--------------------------------------------|----------------------------------------------------|------------------------------------------------------------------------|
+| `* * *`  | User who teaches multiple classes          | View my classes                                    | See all the classes I'm currently managing at a glance                 |
+| `* * *`  | User who teaches multiple classes          | Select the class that I want to manage             | Easily manage multiple classes                                         |       
+| `* * *`  | User who teaches multiple classes          | Create new class                                   | Separate students into their respective classes                        |
+| `* * *`  | User who teaches multiple classes          | Delete class                                       | Remove classes that is not needed anymore                              |
+| `* * *`  | User who manages students                  | Add a new student to the class                     | Keep track of my students' profiles                                    |
+| `* * *`  | User who manages students                  | Delete a student from the class                    | Keep an updated record of students in the class                        |
+| `* * *`  | User who manages student attendance        | Create an attendance record for my students        | Acknowledge a student's attendance (PRESENT, ABSENT, VALID REASON)     | 
+| `* * *`  | User who manages student attendance        | Delete an attendance record                        | Remove any unnecessary attendance records                              |
+| `* *`    | User who manages students                  | Write descriptions for each student                | Take note of certain students based on the description                 |
+| `* *`    | User who manages students                  | Create assignments and grades for each student     | Track my student's grades                                              |
+| `* *`    | User who manages student attendance        | Edit the attendance record of students             | Conveniently make changes to attendance when necessary                 |
+| `* *`    | User who manages student attendance        | View the attendance rate of a student              | Easily view the student's overall attendance rate at one glance        |
+| `* *`    | Organised user                             | Browse students in the default alphabetical setting| easily scroll to find a particular contact                             |
+| `* *`    | New user exploring the app                 | Access the user guide easily via a help button     | Learn how to use the app                                               |
+| `* `     | Forgetful user                             | Schedule reminders for specific contact            | Don't miss important dates or admin tasks                              |
+| `* `     | User who uses Canvas LMS                   | Import the attendance data into Canvas             | Easily upload attendance statistics for the school admin               |
+| `* `     | User who looking to be more efficient      | Send emails/texts to an entire class               | Easily communicate information to the students                         |
+| `* `     | User who looking to be more efficient      | Generate attendance reports                        | Easily submit them to school admin                                     |
+| `* `     | User who looking to be more efficient      | Export Student date in multiple formats (etc. PDF) | Share the data with other tutors or professors easily                  |
 
+## Use cases
 
-### Use cases
+(For all use cases below, the **System** is the `MustVas` and the **Actor** is the `user`, unless specified otherwise)
 
-(For all use cases below, the **System** is the `TutorHelperBot` and the **Actor** is the `user`, unless specified otherwise)
-
-**Use case: Select a class when the program is first opened (UC-01)**
+### Use case: Select a class when the program is first opened (UC-01)
 
 **MSS**
 
-1.  User enters the program
-2.  TutorHelperBot shows a list of classes
-3.  User selects a class
-4.  TuthorHelperBot shows the list of students in the selected class
+1.  User enters the program.
+2.  MustVas shows a list of classes.
+3.  User [selects a class (UC-04)](#use-case-select-a-class-of-students-to-manage-uc-04).
 
-    Use case ends.
+ Use case ends.
 
 **Extensions**
 
 * 2a. The list is empty.
-  * 2a1. TutorHelperBot shows a message that the list is empty.
+  * 2a1. MustVas shows a message that the list is empty. (Not implemented due to feature freeze)
 
   Use case ends.
 
-* 3a. The user enters an invalid class.
+* 3a. The user enters an invalid class index.
+    * 3a1. MustVas shows an error message about selecting an invalid class.
 
-    * 3a1. TutorHelperBot shows an error message about selecting an invalid class.
-
-      Use case ends.
-
+  Use case ends.
 
 
-**Use case: Create new class (UC-02)**
+
+ ### Use case: Create new class (UC-02)
 
 **MSS**
 
-1.  User requests to create new class with all the details
-2.  TutorHelperBot shows the created class
+1.  User requests to create new class with all the details.
+2.  MustVas shows the created class.
 
-    Use case ends.
+ Use case ends.
 
 **Extensions**
 
-* 1a. Enter an invalid command.
-  * 1a1. TutorHelperBot shows an error message.
+* 1a. Enter an invalid class name (Contains non-alphanumeric characters, Contains spaces, or blank).
+  * 1a1. MustVas shows an error message stating the correct format
+* 1b. Enter a duplicate class.
+  * 1b1. MustVas shows an error message stating the class alrea
 
   Use case ends.
 
-
-**Use case: Select a student's profile (UC-03)**
+### Use case: View list of classes (UC-03)
 
 **MSS**
 
-1.  User requests to view a student's profile
-2.  TutorHelperBot shows the details of the selected student
+1. User requests to view a list of classes.
+2. MustVas shows the list of stored classes.
 
-    Use case ends.
+ Use case ends.
 
 **Extensions**
 
-* 1a. Enter an invalid command.
-  * 1a1. TutorHelperBot shows an error message.
-
-* 1b. Enter an invalid student
-  * 1a1. TutorHelperBot shows an error message that stated student is not existed.
+* 1a. Enter an invalid command. 
+  * 1a1.MustVas shows the list of stored classes.
 
   Use case ends.
 
+### Use case: Select a class of students to manage (UC-04)
 
-*{More to be added}*
+**MSS**
+
+1. User request to [view the list of classes (UC-03)](#use-case-view-list-of-classes-uc-03).
+2. User requests to select a class.
+3. MustVas shows the details of the selected class.
+
+ Use case ends.
+
+**Extensions**
+
+* 1a. Enter an invalid class index.
+  * 1a1. MustVas shows an error message stating the provided class index is invalid
+
+  Use case ends.
+  
+
+### Use case: Add a student to a class (UC-05)
+
+**MSS**
+
+1. User enters the program (MustVas).
+2. User [selects a class (UC-04)](#use-case-select-a-class-of-students-to-manage-uc-04).
+3. User then inputs the command 'add' to check how to enter command.
+4. User then inputs details for the command 'add'.
+5. MustVas then adds the student to the selected class and displays all relevant details in the console.
+
+ Use case ends.
+
+**Extensions**
+
+* 3a. User enters invalid details.
+  * 3a1. MustVas shows an error message.
+
+* 3b. Required fields are left empty.
+  * 3b1. MustVas shows an error message.
+ 
+* 3c. User tries to add duplicate student.
+  * 3c1. MustVas shows an error message.
+ 
+  Use case ends.   
+
+### Use case: Delete a student from a class (UC-06)
+
+**MSS**
+
+1. User enters the program (MustVas).
+2. User [selects a class (UC-04)](#use-case-select-a-class-of-students-to-manage-uc-04).
+3. User inputs the command to delete a student record from selected class.
+4. MustVas confirms the deletion and removes the student from the selected class.
+
+ Use case ends.
+  
+**Extensions**
+
+* 3a. User enters invalid command.
+  * 3a1. MustVas shows an error message.
+
+  Use case ends.
+
+### Use case: Add attendance record for a class of students (UC-07)
+
+**MSS**
+
+1. User enters the program (MustVas).
+2. User [selects a class (UC-04)](#use-case-select-a-class-of-students-to-manage-uc-04).
+3. User inputs the command to add an attendance record for all students.
+4. MustVas confirms the added attendance, stores the attendance records for all students in the class, and show the updated attendance records.
+
+ Use case ends.
+
+**Extensions**
+
+* 2a. User enters invalid command.
+  * 2a1. MustVas shows an error message.
+
+  Use case ends.
+    
+* 3a. User inputs an invalid command.
+  * 3a1. MustVas shows an error message.
+  
+  Use case ends.
+
+### Use case: Edit attendance record for some students (UC-08)
+
+**MSS**
+
+1. User enters the program (MustVas).
+2. MustVas shows the layout of the program.
+3. User [selects a class (UC-04)](#use-case-select-a-class-of-students-to-manage-uc-04).
+4. User inputs the command to edit an attendance record for some students.
+5. MustVas confirms the edited attendance records, stores the attendance records for the selected students in the class, and show the updated attendance records.
+
+Use case ends.
+
+**Extensions**
+
+* 3a. User enters invalid command.
+    * 3a1. MustVas shows an error message.
+
+  Use case ends.
+
+* 4a. User inputs an invalid command.
+    * 4a1. MustVas shows an error message.
+
+  Use case ends.
+
+### Use case: Delete attendance record for a class of students (UC-09)
+
+**MSS**
+
+1. User enters the program (MustVas).
+2. MustVas shows the layout of the program.
+3. User [selects a class (UC-04)](#use-case-select-a-class-of-students-to-manage-uc-04).
+4. User inputs the command to delete an attendance record for all students.
+5. MustVas confirms the deleted attendance records, stores the existing attendance records for all students in the class, and show the updated attendance records.
+
+Use case ends.
+
+**Extensions**
+
+* 3a. User enters invalid command.
+    * 3a1. MustVas shows an error message.
+
+  Use case ends.
+
+* 4a. User inputs an invalid command.
+    * 4a1. MustVas shows an error message.
+
+  Use case ends.
+
+### Use case: Add description about a student (UC-10)
+
+**MSS**
+
+1. User enters the program (MustVas).
+2. User [selects a class (UC-04)](#use-case-select-a-class-of-students-to-manage-uc-04).
+3. User inputs the command to add description to a student.
+4. User inputs the description details.
+5. MustVas saves the description for the selected student.
+
+ Use case ends.
+  
+**Extensions**
+
+* 2a. User enters invalid command.   
+  * 2a1. MustVas shows an error message.
+   
+  Use case ends.
+    
+* 3a. User inputs an invalid command.
+  * 3a1. MustVas shows an error message.
+  
+  Use case ends.
+
+### Use case: Remove a class (UC-11)
+
+**MSS**
+
+1. User enters the program (MustVas).
+2. User inputs command to [view the list of classes](#use-case-view-list-of-classes-uc-03).
+3. User inputs the command to remove a class.
+4. User selects the class to be removed from the list.
+5. MustVas removes the selected class and all associated data from the system.
+
+ Use case ends.
+
+**Extensions**
+
+* 2a. User enters invalid command.   
+  * 2a1. MustVas shows an error message.
+   
+  Use case ends.
+    
+* 3a. User inputs an invalid command.
+  * 3a1. MustVas shows an error message.
+
+  Use case ends.
+
+* 4a. User inputs invalid class.
+  * 4a1. MustVas shows an error message.
+
+  Use case ends.
 
 ### Non-Functional Requirements
 
@@ -380,13 +574,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2.  Should be able to hold up to 1000 students without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4.  Each class should accept up to 30 students without issue
-5.  No student should exist in more than 2 classes
-
+5.  There should not be any duplication of students in the same class. 
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Json File**: A file to store the data used in the program
+* **MSS**: Main Success Scenario which outlines the steps that users take when using the product in various scenarios
+* **ClassBook**: List of classes
+* **StudentBook**: List of students in individual classes
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -407,7 +603,8 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Double-click the jar file
+      Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 1. Saving window preferences
 
@@ -416,29 +613,77 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+### Viewing the classes
+1. Viewing the classes
+   1. Prerequisites: Nil
+  
+   1. Test case: `view` (at least one class)<br>
+      Expected: Classes are displayed in the UI, each labelled with an index number(e.g. "1:CS2103  2:CS2101")
+   1. Test case: `view` (no classes)<br>
+      Expected: Interface displays a message stating you are not managing any classes, and prompts to `create` a class
+   1. Test case: `view randominput1234567`<br>
+      Expected: Identical behaviour to `view`, Classes are displayed in the UI, each labelled with an index number(e.g. "1:CS2103  2:CS2101")
+### Selecting a class
+1. Selecting a class
+   1. Prerequisites: At least one class must have been created. You may use `view` to see all current classes (Note: It is not compulsory to use `view`, as long as you know the index, you can `select` your desired class)
+
+   1. Test case: `select 0`<br>
+      Expected: No class is selected. Error details shown in the status message.
+   1. Test case: `select 1` (At least one class exists)<br>
+      Expected: The first class by index is selected. The filepath of the class' .json file will be shown on the bottom left corner/
+   1. Test case: `select 10` (There are less than 10 classes)<br>
+      Expected: No class is selected. Error details shown in the status message.
+
+### Removing a class
+1. Removing a class
+   1. Prerequisites: At least one class must have been created. You may use `view` to see all current classes (Note: It is not compulsory to use `view`, as long as you know the index, you can `rm` your desired class)
+
+   1. Test case: `rm 0`<br>
+      Expected: No class is removed. Error details shown in the status message. The current filepath (in the bottom left corner) is not changed
+   1. Test case: `rm 1` (At least one class exists)<br>
+      Expected: The first class by index is selected. The current filepath (in the bottom left corner) will be changed to `.\No class selected!`. (Note: Even if another class is selected, when any class is deleted, the .json file will be closed and the filepath will be displayed as `.\No class selected!`.)
 
 ### Deleting a person
 
-1. Deleting a person while all persons are being shown
+1. Deleting a person while persons are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   1. Prerequisites: At least one person shown in the interface. You may `select` a class, `find` a person, `add` a person or use `list` to see all persons in a class (note: `list` is automatically called when you `select` a class, so if the selected class has at least one person in it, they will show up in the interface).
+   
 
    1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. 
 
    1. Test case: `delete 0`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+      
+   1. Test case: `delete 1` (no class selected)<br>
+      Expected: Interface prompts you to `select` a class first
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-1. _{ more test cases …​ }_
+
+### Adding a description
+
+1. Adding a description while all persons are being shown
+
+   1. Prerequisites: At least one person shown in the interface. You may `select` a class, `find` a person, `add` a person or use `list` to see all persons in a class (note: `list` is automatically called when you `select` a class, so if the selected class has at least one person in it, they will show up in the interface).
+
+   1. Test case: `description 1 desc/Hello`<br>
+      Expected: First student/contact has a description added to them. Details of where the description has been added is shown.
+
+   1. Test case: `description 0 desc/Hello`<br>
+      Expected: Error message thrown. No description is added to any contact.
+
+   1. Other incorrect description commands: `description 1 Hello`, `description`, `description desc/Hello`, `description x desc/Hello` (Where x is larger than the list size)<br>
+      Expected: Error message thrown. No description is added to any contact.
+
+   1. Adding a description works in concurrence with add/edit commands as well. As long as their prerequisites are met, and description is following a prefix `desc/`, it should work effectively.
 
 ### Saving data
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
+   1. A missing data file of a StudentBook may occur if user accidentally deletes the `.json` file of the class. <br>
+      A corrupted data file may occur if user accidentally edits the `.json` files manually and inputs invalid data.<br>
+      Expected: All data from that missing/corrupted file is wiped. A new `classbook.json` or new `[class].json` will be created when program runs again. 
